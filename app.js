@@ -91,11 +91,12 @@ app.use((req, res, next) => {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
   } else {
-    lusca.csrf()(req, res, next);
+    //lusca.csrf()(req, res, next);
+    next();
   }
 });
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
+//app.use(lusca.xframe('SAMEORIGIN'));
+//app.use(lusca.xssProtection(true));
 app.disable('x-powered-by');
 app.use((req, res, next) => {
   res.locals.user = req.user;
@@ -249,6 +250,8 @@ if (process.env.NODE_ENV === 'development') {
     res.status(500).send('Server Error');
   });
 }
+
+require('./middleware/graphql')(app);
 
 /**
  * Start Express server.
