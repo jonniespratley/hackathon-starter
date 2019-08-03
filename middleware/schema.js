@@ -1,15 +1,18 @@
-const { gql } = require('apollo-server-express');
+const {
+  gql
+} = require('apollo-server-express');
 // Construct a schema, using GraphQL schema language
-const typeDefs = gql`
+const typeDefs = gql `
   # Comments in GraphQL are defined with the hash (#) symbol.
 
   # This "Book" type can be used in other type declarations.
   type Book {
-    title: String
+    name: String
     author: Author
   }
 
   type Author {
+    name: String
     books: [Book]
   }
 
@@ -48,7 +51,7 @@ const typeDefs = gql`
     # Delete a link
     deleteLink(id: ID!): Link
     updateUserAge(id: ID!, age: Int!): User
-    addBook(title: String, author: String): Book
+    addBook(name: String, author: String): Book
   }
 `;
 module.exports = typeDefs;

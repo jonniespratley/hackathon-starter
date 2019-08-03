@@ -4,6 +4,11 @@ const {
     filter
 } = require('lodash');
 
+const Link = require('../models/Link');
+const Book = require('../models/Book');
+
+
+
 const books = [{
         title: 'Harry Potter and the Chamber of Secrets',
         author: 'J.K. Rowling'
@@ -34,7 +39,11 @@ let idCount = links.length;
 const resolvers = {
     Query: {
         hello: () => 'Hello world!',
-        getBooks: () => books,
+        getBooks: (obj, args) => {
+            return Book.find((err, docs) => {
+                return docs
+            });
+        },
         feed: () => links,
         author(parent, args, context, info) {
             console.log('Query.author', args, context, info);
@@ -53,12 +62,9 @@ const resolvers = {
     },
     Mutation: {
         addBook(parent, args) {
-            const book = {
-                title: args.title,
-                author: args.author
-            };
+            const book = new Book(args);
             books.push(book);
-            return book;
+            return book.save();
         },
         addLink: (parent, args) => {
             const link = {
@@ -67,7 +73,9 @@ const resolvers = {
                 url: args.url
             };
             links.push(link);
-            return link;
+            const l = new Link(link);
+            l.save();
+            return l;
         }
     }
 };
