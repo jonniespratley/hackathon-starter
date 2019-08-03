@@ -19,12 +19,16 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
+const upload = multer({
+  dest: path.join(__dirname, 'uploads')
+});
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.config({ path: '.env.example' });
+dotenv.config({
+  path: '.env.example'
+});
 
 /**
  * Controllers (route handlers).
@@ -72,12 +76,16 @@ app.use(sass({
 }));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
-  cookie: { maxAge: 1209600000 }, // two weeks in milliseconds
+  cookie: {
+    maxAge: 1209600000
+  }, // two weeks in milliseconds
   store: new MongoStore({
     url: process.env.MONGODB_URI,
     autoReconnect: true,
@@ -91,12 +99,12 @@ app.use((req, res, next) => {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
   } else {
-    //lusca.csrf()(req, res, next);
+    // lusca.csrf()(req, res, next);
     next();
   }
 });
-//app.use(lusca.xframe('SAMEORIGIN'));
-//app.use(lusca.xssProtection(true));
+// pp.use(lusca.xframe('SAMEORIGIN'));
+// app.use(lusca.xssProtection(true));
 app.disable('x-powered-by');
 app.use((req, res, next) => {
   res.locals.user = req.user;
@@ -104,24 +112,36 @@ app.use((req, res, next) => {
 });
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
-  if (!req.user
-    && req.path !== '/login'
-    && req.path !== '/signup'
-    && !req.path.match(/^\/auth/)
-    && !req.path.match(/\./)) {
+  if (!req.user &&
+    req.path !== '/login' &&
+    req.path !== '/signup' &&
+    !req.path.match(/^\/auth/) &&
+    !req.path.match(/\./)) {
     req.session.returnTo = req.originalUrl;
-  } else if (req.user
-    && (req.path === '/account' || req.path.match(/^\/api/))) {
+  } else if (req.user &&
+    (req.path === '/account' || req.path.match(/^\/api/))) {
     req.session.returnTo = req.originalUrl;
   }
   next();
 });
-app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/chart.js/dist'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), { maxAge: 31557600000 }));
-app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600000 }));
-app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), { maxAge: 31557600000 }));
+app.use('/', express.static(path.join(__dirname, 'public'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/chart.js/dist'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), {
+  maxAge: 31557600000
+}));
+app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), {
+  maxAge: 31557600000
+}));
+app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), {
+  maxAge: 31557600000
+}));
 
 /**
  * Primary app routes.
@@ -171,8 +191,12 @@ app.get('/api/paypal', apiController.getPayPal);
 app.get('/api/paypal/success', apiController.getPayPalSuccess);
 app.get('/api/paypal/cancel', apiController.getPayPalCancel);
 app.get('/api/lob', apiController.getLob);
-app.get('/api/upload', lusca({ csrf: true }), apiController.getFileUpload);
-app.post('/api/upload', upload.single('myFile'), lusca({ csrf: true }), apiController.postFileUpload);
+app.get('/api/upload', lusca({
+  csrf: true
+}), apiController.getFileUpload);
+app.post('/api/upload', upload.single('myFile'), lusca({
+  csrf: true
+}), apiController.postFileUpload);
 app.get('/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getPinterest);
 app.post('/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postPinterest);
 app.get('/api/here-maps', apiController.getHereMaps);
@@ -185,32 +209,56 @@ app.get('/api/quickbooks', passportConfig.isAuthenticated, passportConfig.isAuth
 /**
  * OAuth authentication routes. (Sign in)
  */
-app.get('/auth/instagram', passport.authenticate('instagram', { scope: ['basic', 'public_content'] }));
-app.get('/auth/instagram/callback', passport.authenticate('instagram', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/instagram', passport.authenticate('instagram', {
+  scope: ['basic', 'public_content']
+}));
+app.get('/auth/instagram/callback', passport.authenticate('instagram', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
 app.get('/auth/snapchat', passport.authenticate('snapchat'));
-app.get('/auth/snapchat/callback', passport.authenticate('snapchat', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/snapchat/callback', passport.authenticate('snapchat', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/facebook', passport.authenticate('facebook', {
+  scope: ['email', 'public_profile']
+}));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
 app.get('/auth/github', passport.authenticate('github'));
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/github/callback', passport.authenticate('github', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets.readonly'], accessType: 'offline', prompt: 'consent' }));
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets.readonly'],
+  accessType: 'offline',
+  prompt: 'consent'
+}));
+app.get('/auth/google/callback', passport.authenticate('google', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
 app.get('/auth/twitter', passport.authenticate('twitter'));
-app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/twitter/callback', passport.authenticate('twitter', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
-app.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'SOME STATE' }));
-app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/linkedin', passport.authenticate('linkedin', {
+  state: 'SOME STATE'
+}));
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
 
@@ -218,23 +266,40 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
  * OAuth authorization routes. (API examples)
  */
 app.get('/auth/foursquare', passport.authorize('foursquare'));
-app.get('/auth/foursquare/callback', passport.authorize('foursquare', { failureRedirect: '/api' }), (req, res) => {
+app.get('/auth/foursquare/callback', passport.authorize('foursquare', {
+  failureRedirect: '/api'
+}), (req, res) => {
   res.redirect('/api/foursquare');
 });
 app.get('/auth/tumblr', passport.authorize('tumblr'));
-app.get('/auth/tumblr/callback', passport.authorize('tumblr', { failureRedirect: '/api' }), (req, res) => {
+app.get('/auth/tumblr/callback', passport.authorize('tumblr', {
+  failureRedirect: '/api'
+}), (req, res) => {
   res.redirect('/api/tumblr');
 });
-app.get('/auth/steam', passport.authorize('openid', { state: 'SOME STATE' }));
-app.get('/auth/steam/callback', passport.authorize('openid', { failureRedirect: '/api' }), (req, res) => {
+app.get('/auth/steam', passport.authorize('openid', {
+  state: 'SOME STATE'
+}));
+app.get('/auth/steam/callback', passport.authorize('openid', {
+  failureRedirect: '/api'
+}), (req, res) => {
   res.redirect(req.session.returnTo);
 });
-app.get('/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public write_public' }));
-app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/pinterest', passport.authorize('pinterest', {
+  scope: 'read_public write_public'
+}));
+app.get('/auth/pinterest/callback', passport.authorize('pinterest', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect('/api/pinterest');
 });
-app.get('/auth/quickbooks', passport.authorize('quickbooks', { scope: ['com.intuit.quickbooks.accounting'], state: 'SOME STATE' }));
-app.get('/auth/quickbooks/callback', passport.authorize('quickbooks', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/quickbooks', passport.authorize('quickbooks', {
+  scope: ['com.intuit.quickbooks.accounting'],
+  state: 'SOME STATE'
+}));
+app.get('/auth/quickbooks/callback', passport.authorize('quickbooks', {
+  failureRedirect: '/login'
+}), (req, res) => {
   res.redirect(req.session.returnTo);
 });
 

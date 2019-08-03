@@ -6,12 +6,12 @@ const {
 
 const books = [{
         title: 'Harry Potter and the Chamber of Secrets',
-        author: 'J.K. Rowling',
+        author: 'J.K. Rowling'
     },
     {
         title: 'Jurassic Park',
-        author: 'Michael Crichton',
-    },
+        author: 'Michael Crichton'
+    }
 ];
 const authors = [{
         id: 1,
@@ -20,16 +20,16 @@ const authors = [{
     {
         id: 2,
         name: 'J.K. Rowling'
-    },
+    }
 ];
 
-let links = [{
+const links = [{
     id: 'link-0',
     url: 'www.howtographql.com',
     description: 'Fullstack tutorial for GraphQL'
-  }]
-  // 1
-  let idCount = links.length
+}];
+// 1
+let idCount = links.length;
 
 const resolvers = {
     Query: {
@@ -37,11 +37,11 @@ const resolvers = {
         getBooks: () => books,
         feed: () => links,
         author(parent, args, context, info) {
-            console.log('Query.author', args);
+            console.log('Query.author', args, context, info);
             return find(authors, {
                 id: args.id
             });
-        },
+        }
     },
     Author: {
         books(author) {
@@ -49,11 +49,11 @@ const resolvers = {
             return filter(books, {
                 author: author.name
             });
-        },
+        }
     },
     Mutation: {
-        addBook(parent, args){
-            let book = {
+        addBook(parent, args) {
+            const book = {
                 title: args.title,
                 author: args.author
             };
@@ -62,13 +62,13 @@ const resolvers = {
         },
         addLink: (parent, args) => {
             const link = {
-             id: `link-${idCount++}`,
-             description: args.description,
-             url: args.url,
-           }
-           links.push(link)
-           return link
-         }
+                id: `link-${idCount++}`,
+                description: args.description,
+                url: args.url
+            };
+            links.push(link);
+            return link;
+        }
     }
 };
 module.exports = resolvers;
