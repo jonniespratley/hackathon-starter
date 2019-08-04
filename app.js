@@ -27,7 +27,7 @@ const upload = multer({
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.config({
-  path: '.env.example'
+  path: '.env'
 });
 
 /**
@@ -79,9 +79,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(session({
+const sess = {
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: false,
   secret: process.env.SESSION_SECRET,
   cookie: {
     maxAge: 1209600000
@@ -90,7 +90,13 @@ app.use(session({
     url: process.env.MONGODB_URI,
     autoReconnect: true,
   })
-}));
+};
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -307,6 +313,7 @@ app.get('/auth/quickbooks/callback', passport.authorize('quickbooks', {
  * Error Handler.
  */
 if (process.env.NODE_ENV === 'development') {
+  console.log(env, process.env);
   // only use in development
   app.use(errorHandler());
 } else {

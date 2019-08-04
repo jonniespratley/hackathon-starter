@@ -4,7 +4,11 @@ const {
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql `
   # Comments in GraphQL are defined with the hash (#) symbol.
-
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
   # This "Book" type can be used in other type declarations.
   type Book {
     name: String
@@ -32,6 +36,7 @@ const typeDefs = gql `
   # (A "Mutation" type will be covered later on.)
   type Query {
     hello: String
+    uploads: [File]
     feed: [Link!]!
     author: Author
     getBooks: [Book]
@@ -42,6 +47,8 @@ const typeDefs = gql `
   }
 
   type Mutation {
+    singleUpload(file: Upload!): File!
+    ### CRUD on Link
     # Add a link
     addLink(url: String!, description: String!): Link!
 
@@ -50,7 +57,12 @@ const typeDefs = gql `
 
     # Delete a link
     deleteLink(id: ID!): Link
+    
+    
     updateUserAge(id: ID!, age: Int!): User
+    
+    
+    ### CRUD on a book
     addBook(name: String, author: String): Book
   }
 `;

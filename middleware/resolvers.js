@@ -39,14 +39,15 @@ let idCount = links.length;
 const resolvers = {
     Query: {
         hello: () => 'Hello world!',
-        getBooks: (obj, args) => {
+        getBooks: (obj, args, context, info) => {
+            console.log('Query.getBooks', obj, args, context, info);
             return Book.find((err, docs) => {
                 return docs
             });
         },
         feed: () => links,
-        author(parent, args, context, info) {
-            console.log('Query.author', args, context, info);
+        author(obj, args, context, info) {
+            console.log('Query.author', obj, args, context, info);
             return find(authors, {
                 id: args.id
             });
