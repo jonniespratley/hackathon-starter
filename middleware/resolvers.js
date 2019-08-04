@@ -4,8 +4,11 @@ const {
     filter
 } = require('lodash');
 
-const Link = require('../models/Link');
-const Book = require('../models/Book');
+
+const {
+    Book,
+    Link
+} = require('../models');
 
 
 

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
-const Author = require('./models/Author');
-const Book = require('./models/Book');
+
+
+const {
+    Book
+} = require('./models');
 
 
 (async function main() {
@@ -8,30 +11,30 @@ const Book = require('./models/Book');
 
 
 
- 
+
     mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mongo-games', {
-        useNewUrlParser: true 
-    })
-    .then(() => {
-        console.log('You are now connected to Mongo!')
-    })
-    .catch(err => console.error('Something went wrong', err))
-    
-   /* const db = mongoose.connection
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function test() {
-        //console.log('// were connected!')
-    }); */
+            useNewUrlParser: true
+        })
+        .then(() => {
+            console.log('You are now connected to Mongo!')
+        })
+        .catch(err => console.error('Something went wrong', err))
+
+    /* const db = mongoose.connection
+     db.on('error', console.error.bind(console, 'connection error:'));
+     db.once('open', function test() {
+         //console.log('// were connected!')
+     }); */
 
 
-    async function createBookAndAuthor( book ){
+    async function createBookAndAuthor(book) {
         const b = new Book(book);
         const result = await b.save();
         console.log('saved', result);
         return result;
     }
-    
-    
+
+
 
 
     const Publisher = mongoose.model('Publisher', new mongoose.Schema({
@@ -45,6 +48,11 @@ const Book = require('./models/Book');
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Publisher'
         },
+        /* publisher: {
+            type: new mongoose.Schema({
+                companyName: String,
+            })
+        } */
         tags: [String],
         date: {
             type: Date,
@@ -53,10 +61,16 @@ const Book = require('./models/Book');
         onSale: Boolean,
         price: Number
     });
-     
+
     const Game = mongoose.model('Game', gameSchema);
-     
-    async function saveGame({title, publisher, tags, price, onSale = false}) {
+
+    async function saveGame({
+        title,
+        publisher,
+        tags,
+        price,
+        onSale = false
+    }) {
         const game = new Game({
             title,
             publisher,
@@ -64,7 +78,7 @@ const Book = require('./models/Book');
             onSale,
             price,
         });
-     
+
         const result = await game.save();
         console.log(result);
         return result;
@@ -76,7 +90,7 @@ const Book = require('./models/Book');
             firstParty,
             website
         });
-     
+
         const result = await publisher.save();
         console.log(result);
         return result;
@@ -86,13 +100,14 @@ const Book = require('./models/Book');
         const game = new Game({
             title,
             publisher
+
         });
-     
+
         const result = await game.save();
-        console.log( 'createGame', result);
+        console.log('createGame', result);
         return result;
     }
-     
+
     async function listGames() {
         const games = await Game
             .find()
@@ -108,25 +123,24 @@ const Book = require('./models/Book');
         return games;
     }
 
-    async function getNintendoGames() {
-        const games = await Game.find({
-            publisher: 'Nintendo',
-            onSale: true
-        });
-        console.log(games);
-    }
-     
-
-   
 
 
-    
+
+
     // saveGame();
 
-    
-  
 
-    const { _id } = await createPublisher('Nintendo', true, 'https://www.nintendo.com/');
+
+    createGame('Rayman', new Publisher({
+        companyName: 'Ubisoft',
+        firstParty: false,
+        website: 'https://www.ubisoft.com/'
+    }))
+
+
+    const {
+        _id
+    } = await createPublisher('Nintendo', true, 'https://www.nintendo.com/');
     [
         'Super Smash Bros: Ultimate',
         'Super Smash Bros: Melee',
@@ -136,9 +150,10 @@ const Book = require('./models/Book');
         createGame(name, _id);
     })
 
-    
-    
+
+
     listGames();
-    
+    getGames();
+
 
 })()
