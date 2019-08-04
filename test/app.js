@@ -40,7 +40,7 @@ describe('GET /contact', () => {
       .expect(200, done);
   });
 });
-
+/*
 describe('GET /api/lastfm', () => {
   it('should return 200 OK', (done) => {
     request(app)
@@ -88,6 +88,7 @@ describe('GET /api/clockwork', () => {
       .expect(200, done);
   });
 });
+*/
 
 describe('GET /api/upload', () => {
   it('should return 200 OK', (done) => {

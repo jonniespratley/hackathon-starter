@@ -1,0 +1,79 @@
+{
+  "apps": [
+    {
+      "uri": "/apps/app-1",
+      "id": "app-1",
+      "host": "https://apphub-microapp-seed.run.aws-usw02-dev.ice.predix.io",
+      "path": "/app-1",
+      "template": "/index.html",
+      "location": "main",
+      "navService": null,
+      "order": 0,
+      "label": "Microapp Seed",
+      "icon": "fa-square",
+      "items": [
+        {
+          "label": "Microapp Seed",
+          "icon": "fa-square",
+          "path": "/app-1/#"
+        }
+      ],
+      "capabilities": [],
+      "default": true
+    },
+    {
+      "uri": "/apps/settings",
+      "id": "settings",
+      "host": "https://apphub-microapp-settings-stage.run.aws-usw02-dev.ice.predix.io",
+      "path": "/settings",
+      "template": "/index.html",
+      "location": "settings",
+      "navService": null,
+      "order": 0,
+      "label": null,
+      "icon": null,
+      "items": [
+        {
+          "label": "Settings",
+          "icon": "fa-wrench",
+          "path": "/settings/#"
+        }
+      ],
+      "capabilities": [],
+      "default": false
+    }
+  ],
+  "themes": [
+    [
+      {
+        "baseUri": "https://apphub-chrome-cdn.run.aws-usw02-pr.ice.predix.io",
+        "main": "views/pxh-chrome/main.handlebars",
+        "error": "views/pxh-chrome/error_postchrome.handlebars",
+        "errorChromeless": "views/pxh-chrome/error_postchrome_chromeless.handlebars",
+        "displayName": "pxh-chrome-theme",
+        "demoLink": "https://apphub-chrome-cdn.run.aws-usw02-pr.ice.predix.io",
+        "description": "Default AppHub Chrome"
+      }
+    ],
+    [
+      {
+        "baseUri": "https://polymer-es6.predix-apphub-dev.run.aws-usw02-dev.ice.predix.io/ui-hub-assets/pds-chrome/0",
+        "main": "build/es6/views/main.handlebars",
+        "error": "build/es6/views/error_chromeful.handlebars",
+        "errorChromeless": "build/es6/views/error_chromeless.handlebars",
+        "options": {
+          "Test123": "Updated Theme Option"
+        },
+        "displayName": "polymer-chrome",
+        "description": "someDescription"
+      }
+    ]
+  ],
+  "globalConfig": {
+    "name": "AppHub Test",
+    "logo": false,
+    "logoUri": "",
+    "applicationChrome": false,
+    "globalScripts": []
+  }
+}
