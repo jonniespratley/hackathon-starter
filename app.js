@@ -324,7 +324,7 @@ app.get('/auth/quickbooks/callback', passport.authorize('quickbooks', {
  * Error Handler.
  */
 if (process.env.NODE_ENV === 'development') {
-  console.log(env, process.env);
+  console.log(process.env);
   // only use in development
   app.use(errorHandler());
 } else {

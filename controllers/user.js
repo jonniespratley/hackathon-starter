@@ -28,23 +28,31 @@ exports.getLogin = (req, res) => {
  */
 exports.postLogin = (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
-  if (validator.isEmpty(req.body.password)) validationErrors.push({ msg: 'Password cannot be blank.' });
+  if (!validator.isEmail(req.body.email))
+    validationErrors.push({ msg: 'Please enter a valid email address.' });
+  if (validator.isEmpty(req.body.password))
+    validationErrors.push({ msg: 'Password cannot be blank.' });
 
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
     return res.redirect('/login');
   }
-  req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
+  req.body.email = validator.normalizeEmail(req.body.email, {
+    gmail_remove_dots: false
+  });
 
   passport.authenticate('local', (err, user, info) => {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     if (!user) {
       req.flash('errors', info);
       return res.redirect('/login');
     }
-    req.logIn(user, (err) => {
-      if (err) { return next(err); }
+    req.logIn(user, err => {
+      if (err) {
+        return next(err);
+      }
       req.flash('success', { msg: 'Success! You are logged in.' });
       res.redirect(req.session.returnTo || '/');
     });
@@ -57,8 +65,9 @@ exports.postLogin = (req, res, next) => {
  */
 exports.logout = (req, res) => {
   req.logout();
-  req.session.destroy((err) => {
-    if (err) console.log('Error : Failed to destroy the session during logout.', err);
+  req.session.destroy(err => {
+    if (err)
+      console.log('Error : Failed to destroy the session during logout.', err);
     req.user = null;
     res.redirect('/');
   });
@@ -83,15 +92,22 @@ exports.getSignup = (req, res) => {
  */
 exports.postSignup = (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
-  if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' });
-  if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' });
+  if (!validator.isEmail(req.body.email))
+    validationErrors.push({ msg: 'Please enter a valid email address.' });
+  if (!validator.isLength(req.body.password, { min: 8 }))
+    validationErrors.push({
+      msg: 'Password must be at least 8 characters long'
+    });
+  if (req.body.password !== req.body.confirmPassword)
+    validationErrors.push({ msg: 'Passwords do not match' });
 
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
     return res.redirect('/signup');
   }
-  req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
+  req.body.email = validator.normalizeEmail(req.body.email, {
+    gmail_remove_dots: false
+  });
 
   const user = new User({
     email: req.body.email,
@@ -99,14 +115,20 @@ exports.postSignup = (req, res, next) => {
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
+      req.flash('errors', {
+        msg: 'Account with that email address already exists.'
+      });
       return res.redirect('/signup');
     }
-    user.save((err) => {
-      if (err) { return next(err); }
-      req.logIn(user, (err) => {
+    user.save(err => {
+      if (err) {
+        return next(err);
+      }
+      req.logIn(user, err => {
         if (err) {
           return next(err);
         }
@@ -132,26 +154,34 @@ exports.getAccount = (req, res) => {
  */
 exports.postUpdateProfile = (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
+  if (!validator.isEmail(req.body.email))
+    validationErrors.push({ msg: 'Please enter a valid email address.' });
 
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
     return res.redirect('/account');
   }
-  req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
+  req.body.email = validator.normalizeEmail(req.body.email, {
+    gmail_remove_dots: false
+  });
 
   User.findById(req.user.id, (err, user) => {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     if (user.email !== req.body.email) user.emailVerified = false;
     user.email = req.body.email || '';
     user.profile.name = req.body.name || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
-    user.save((err) => {
+    user.save(err => {
       if (err) {
         if (err.code === 11000) {
-          req.flash('errors', { msg: 'The email address you have entered is already associated with an account.' });
+          req.flash('errors', {
+            msg:
+              'The email address you have entered is already associated with an account.'
+          });
           return res.redirect('/account');
         }
         return next(err);
@@ -168,8 +198,12 @@ exports.postUpdateProfile = (req, res, next) => {
  */
 exports.postUpdatePassword = (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' });
-  if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' });
+  if (!validator.isLength(req.body.password, { min: 8 }))
+    validationErrors.push({
+      msg: 'Password must be at least 8 characters long'
+    });
+  if (req.body.password !== req.body.confirmPassword)
+    validationErrors.push({ msg: 'Passwords do not match' });
 
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
@@ -177,10 +211,14 @@ exports.postUpdatePassword = (req, res, next) => {
   }
 
   User.findById(req.user.id, (err, user) => {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     user.password = req.body.password;
-    user.save((err) => {
-      if (err) { return next(err); }
+    user.save(err => {
+      if (err) {
+        return next(err);
+      }
       req.flash('success', { msg: 'Password has been changed.' });
       res.redirect('/account');
     });
@@ -192,8 +230,10 @@ exports.postUpdatePassword = (req, res, next) => {
  * Delete user account.
  */
 exports.postDeleteAccount = (req, res, next) => {
-  User.deleteOne({ _id: req.user.id }, (err) => {
-    if (err) { return next(err); }
+  User.deleteOne({ _id: req.user.id }, err => {
+    if (err) {
+      return next(err);
+    }
     req.logout();
     req.flash('info', { msg: 'Your account has been deleted.' });
     res.redirect('/');
@@ -207,27 +247,33 @@ exports.postDeleteAccount = (req, res, next) => {
 exports.getOauthUnlink = (req, res, next) => {
   const { provider } = req.params;
   User.findById(req.user.id, (err, user) => {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
     user[provider.toLowerCase()] = undefined;
-    const tokensWithoutProviderToUnlink = user.tokens.filter(token =>
-      token.kind !== provider.toLowerCase());
+    const tokensWithoutProviderToUnlink = user.tokens.filter(token => token.kind !== provider.toLowerCase());
     // Some auth providers do not provide an email address in the user profile.
     // As a result, we need to verify that unlinking the provider is safe by ensuring
     // that another login method exists.
     if (
-      !(user.email && user.password)
-      && tokensWithoutProviderToUnlink.length === 0
+      !(user.email && user.password) &&
+      tokensWithoutProviderToUnlink.length === 0
     ) {
       req.flash('errors', {
-        msg: `The ${_.startCase(_.toLower(provider))} account cannot be unlinked without another form of login enabled.`
-          + ' Please link another account or add an email address and password.'
+        msg:
+          `The ${_.startCase(_.toLower(provider))} account cannot be unlinked without another form of login enabled.` +
+          ' Please link another account or add an email address and password.'
       });
       return res.redirect('/account');
     }
     user.tokens = tokensWithoutProviderToUnlink;
-    user.save((err) => {
-      if (err) { return next(err); }
-      req.flash('info', { msg: `${_.startCase(_.toLower(provider))} account has been unlinked.` });
+    user.save(err => {
+      if (err) {
+        return next(err);
+      }
+      req.flash('info', {
+        msg: `${_.startCase(_.toLower(provider))} account has been unlinked.`
+      });
       res.redirect('/account');
     });
   });
@@ -242,19 +288,24 @@ exports.getReset = (req, res, next) => {
     return res.redirect('/');
   }
   const validationErrors = [];
-  if (!validator.isHexadecimal(req.params.token)) validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
+  if (!validator.isHexadecimal(req.params.token))
+    validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
     return res.redirect('/forgot');
   }
 
-  User
-    .findOne({ passwordResetToken: req.params.token })
-    .where('passwordResetExpires').gt(Date.now())
+  User.findOne({ passwordResetToken: req.params.token })
+    .where('passwordResetExpires')
+    .gt(Date.now())
     .exec((err, user) => {
-      if (err) { return next(err); }
+      if (err) {
+        return next(err);
+      }
       if (!user) {
-        req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+        req.flash('errors', {
+          msg: 'Password reset token is invalid or has expired.'
+        });
         return res.redirect('/forgot');
       }
       res.render('account/reset', {
@@ -274,29 +325,37 @@ exports.getVerifyEmailToken = (req, res, next) => {
   }
 
   const validationErrors = [];
-  if (req.params.token && (!validator.isHexadecimal(req.params.token))) validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
+  if (req.params.token && !validator.isHexadecimal(req.params.token))
+    validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
     return res.redirect('/account');
   }
 
   if (req.params.token === req.user.emailVerificationToken) {
-    User
-      .findOne({ email: req.user.email })
-      .then((user) => {
+    User.findOne({ email: req.user.email })
+      .then(user => {
         if (!user) {
-          req.flash('errors', { msg: 'There was an error in loading your profile.' });
+          req.flash('errors', {
+            msg: 'There was an error in loading your profile.'
+          });
           return res.redirect('back');
         }
         user.emailVerificationToken = '';
         user.emailVerified = true;
         user = user.save();
-        req.flash('info', { msg: 'Thank you for verifying your email address.' });
+        req.flash('info', {
+          msg: 'Thank you for verifying your email address.'
+        });
         return res.redirect('/account');
       })
-      .catch((error) => {
-        console.log('Error saving the user profile to the database after email verification', error);
-        req.flash('error', { msg: 'There was an error when updating your profile.  Please try again later.' });
+      .catch(error => {
+        console.log('Error saving the user profile to the database after email verification',
+          error);
+        req.flash('error', {
+          msg:
+            'There was an error when updating your profile.  Please try again later.'
+        });
         return res.redirect('/account');
       });
   }
@@ -313,24 +372,25 @@ exports.getVerifyEmail = (req, res, next) => {
   }
 
   if (!mailChecker.isValid(req.user.email)) {
-    req.flash('errors', { msg: 'The email address is invalid or disposable and can not be verified.  Please update your email address and try again.' });
+    req.flash('errors', {
+      msg:
+        'The email address is invalid or disposable and can not be verified.  Please update your email address and try again.'
+    });
     return res.redirect('/account');
   }
 
-  const createRandomToken = randomBytesAsync(16)
-    .then(buf => buf.toString('hex'));
+  const createRandomToken = randomBytesAsync(16).then(buf =>
+    buf.toString('hex'));
 
-  const setRandomToken = (token) => {
-    User
-      .findOne({ email: req.user.email })
-      .then((user) => {
-        user.emailVerificationToken = token;
-        user = user.save();
-      });
+  const setRandomToken = token => {
+    User.findOne({ email: req.user.email }).then(user => {
+      user.emailVerificationToken = token;
+      user = user.save();
+    });
     return token;
   };
 
-  const sendVerifyEmail = (token) => {
+  const sendVerifyEmail = token => {
     let transporter = nodemailer.createTransport({
       service: 'SendGrid',
       auth: {
@@ -348,11 +408,14 @@ exports.getVerifyEmail = (req, res, next) => {
         \n\n
         Thank you!`
     };
-    return transporter.sendMail(mailOptions)
+    return transporter
+      .sendMail(mailOptions)
       .then(() => {
-        req.flash('info', { msg: `An e-mail has been sent to ${req.user.email} with further instructions.` });
+        req.flash('info', {
+          msg: `An e-mail has been sent to ${req.user.email} with further instructions.`
+        });
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.message === 'self signed certificate in certificate chain') {
           console.log('WARNING: Self signed certificate in certificate chain. Retrying with the self signed certificate. Use a valid certificate if in production.');
           transporter = nodemailer.createTransport({
@@ -365,13 +428,18 @@ exports.getVerifyEmail = (req, res, next) => {
               rejectUnauthorized: false
             }
           });
-          return transporter.sendMail(mailOptions)
-            .then(() => {
-              req.flash('info', { msg: `An e-mail has been sent to ${req.user.email} with further instructions.` });
+          return transporter.sendMail(mailOptions).then(() => {
+            req.flash('info', {
+              msg: `An e-mail has been sent to ${req.user.email} with further instructions.`
             });
+          });
         }
-        console.log('ERROR: Could not send verifyEmail email after security downgrade.\n', err);
-        req.flash('errors', { msg: 'Error sending the email verification message. Please try again shortly.' });
+        console.log('ERROR: Could not send verifyEmail email after security downgrade.\n',
+          err);
+        req.flash('errors', {
+          msg:
+            'Error sending the email verification message. Please try again shortly.'
+        });
         return err;
       });
   };
@@ -389,9 +457,14 @@ exports.getVerifyEmail = (req, res, next) => {
  */
 exports.postReset = (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' });
-  if (req.body.password !== req.body.confirm) validationErrors.push({ msg: 'Passwords do not match' });
-  if (!validator.isHexadecimal(req.params.token)) validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
+  if (!validator.isLength(req.body.password, { min: 8 }))
+    validationErrors.push({
+      msg: 'Password must be at least 8 characters long'
+    });
+  if (req.body.password !== req.body.confirm)
+    validationErrors.push({ msg: 'Passwords do not match' });
+  if (!validator.isHexadecimal(req.params.token))
+    validationErrors.push({ msg: 'Invalid Token.  Please retry.' });
 
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
@@ -399,27 +472,34 @@ exports.postReset = (req, res, next) => {
   }
 
   const resetPassword = () =>
-    User
-      .findOne({ passwordResetToken: req.params.token })
-      .where('passwordResetExpires').gt(Date.now())
-      .then((user) => {
+    User.findOne({ passwordResetToken: req.params.token })
+      .where('passwordResetExpires')
+      .gt(Date.now())
+      .then(user => {
         if (!user) {
-          req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+          req.flash('errors', {
+            msg: 'Password reset token is invalid or has expired.'
+          });
           return res.redirect('back');
         }
         user.password = req.body.password;
         user.passwordResetToken = undefined;
         user.passwordResetExpires = undefined;
-        return user.save().then(() => new Promise((resolve, reject) => {
-          req.logIn(user, (err) => {
-            if (err) { return reject(err); }
-            resolve(user);
-          });
-        }));
+        return user.save().then(() =>
+            new Promise((resolve, reject) => {
+              req.logIn(user, err => {
+                if (err) {
+                  return reject(err);
+                }
+                resolve(user);
+              });
+            }));
       });
 
-  const sendResetPasswordEmail = (user) => {
-    if (!user) { return; }
+  const sendResetPasswordEmail = user => {
+    if (!user) {
+      return;
+    }
     let transporter = nodemailer.createTransport({
       service: 'SendGrid',
       auth: {
@@ -433,11 +513,14 @@ exports.postReset = (req, res, next) => {
       subject: 'Your Hackathon Starter password has been changed',
       text: `Hello,\n\nThis is a confirmation that the password for your account ${user.email} has just been changed.\n`
     };
-    return transporter.sendMail(mailOptions)
+    return transporter
+      .sendMail(mailOptions)
       .then(() => {
-        req.flash('success', { msg: 'Success! Your password has been changed.' });
+        req.flash('success', {
+          msg: 'Success! Your password has been changed.'
+        });
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.message === 'self signed certificate in certificate chain') {
           console.log('WARNING: Self signed certificate in certificate chain. Retrying with the self signed certificate. Use a valid certificate if in production.');
           transporter = nodemailer.createTransport({
@@ -450,20 +533,27 @@ exports.postReset = (req, res, next) => {
               rejectUnauthorized: false
             }
           });
-          return transporter.sendMail(mailOptions)
-            .then(() => {
-              req.flash('success', { msg: 'Success! Your password has been changed.' });
+          return transporter.sendMail(mailOptions).then(() => {
+            req.flash('success', {
+              msg: 'Success! Your password has been changed.'
             });
+          });
         }
-        console.log('ERROR: Could not send password reset confirmation email after security downgrade.\n', err);
-        req.flash('warning', { msg: 'Your password has been changed, however we were unable to send you a confirmation email. We will be looking into it shortly.' });
+        console.log('ERROR: Could not send password reset confirmation email after security downgrade.\n',
+          err);
+        req.flash('warning', {
+          msg:
+            'Your password has been changed, however we were unable to send you a confirmation email. We will be looking into it shortly.'
+        });
         return err;
       });
   };
 
   resetPassword()
     .then(sendResetPasswordEmail)
-    .then(() => { if (!res.finished) res.redirect('/'); })
+    .then(() => {
+      if (!res.finished) res.redirect('/');
+    })
     .catch(err => next(err));
 };
 
@@ -486,33 +576,38 @@ exports.getForgot = (req, res) => {
  */
 exports.postForgot = (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
+  if (!validator.isEmail(req.body.email))
+    validationErrors.push({ msg: 'Please enter a valid email address.' });
 
   if (validationErrors.length) {
     req.flash('errors', validationErrors);
     return res.redirect('/forgot');
   }
-  req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
+  req.body.email = validator.normalizeEmail(req.body.email, {
+    gmail_remove_dots: false
+  });
 
-  const createRandomToken = randomBytesAsync(16)
-    .then(buf => buf.toString('hex'));
+  const createRandomToken = randomBytesAsync(16).then(buf =>
+    buf.toString('hex'));
 
   const setRandomToken = token =>
-    User
-      .findOne({ email: req.body.email })
-      .then((user) => {
-        if (!user) {
-          req.flash('errors', { msg: 'Account with that email address does not exist.' });
-        } else {
-          user.passwordResetToken = token;
-          user.passwordResetExpires = Date.now() + 3600000; // 1 hour
-          user = user.save();
-        }
-        return user;
-      });
+    User.findOne({ email: req.body.email }).then(user => {
+      if (!user) {
+        req.flash('errors', {
+          msg: 'Account with that email address does not exist.'
+        });
+      } else {
+        user.passwordResetToken = token;
+        user.passwordResetExpires = Date.now() + 3600000; // 1 hour
+        user = user.save();
+      }
+      return user;
+    });
 
-  const sendForgotPasswordEmail = (user) => {
-    if (!user) { return; }
+  const sendForgotPasswordEmail = user => {
+    if (!user) {
+      return;
+    }
     const token = user.passwordResetToken;
     let transporter = nodemailer.createTransport({
       service: 'SendGrid',
@@ -530,11 +625,14 @@ exports.postForgot = (req, res, next) => {
         http://${req.headers.host}/reset/${token}\n\n
         If you did not request this, please ignore this email and your password will remain unchanged.\n`
     };
-    return transporter.sendMail(mailOptions)
+    return transporter
+      .sendMail(mailOptions)
       .then(() => {
-        req.flash('info', { msg: `An e-mail has been sent to ${user.email} with further instructions.` });
+        req.flash('info', {
+          msg: `An e-mail has been sent to ${user.email} with further instructions.`
+        });
       })
-      .catch((err) => {
+      .catch(err => {
         if (err.message === 'self signed certificate in certificate chain') {
           console.log('WARNING: Self signed certificate in certificate chain. Retrying with the self signed certificate. Use a valid certificate if in production.');
           transporter = nodemailer.createTransport({
@@ -547,13 +645,18 @@ exports.postForgot = (req, res, next) => {
               rejectUnauthorized: false
             }
           });
-          return transporter.sendMail(mailOptions)
-            .then(() => {
-              req.flash('info', { msg: `An e-mail has been sent to ${user.email} with further instructions.` });
+          return transporter.sendMail(mailOptions).then(() => {
+            req.flash('info', {
+              msg: `An e-mail has been sent to ${user.email} with further instructions.`
             });
+          });
         }
-        console.log('ERROR: Could not send forgot password email after security downgrade.\n', err);
-        req.flash('errors', { msg: 'Error sending the password reset message. Please try again shortly.' });
+        console.log('ERROR: Could not send forgot password email after security downgrade.\n',
+          err);
+        req.flash('errors', {
+          msg:
+            'Error sending the password reset message. Please try again shortly.'
+        });
         return err;
       });
   };
