@@ -27,7 +27,7 @@ const upload = multer({
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.config({
-  path: '.env'
+  path: process.env.USE_ENV || '.env.dev'
 });
 
 /**
@@ -176,16 +176,21 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
+/*
 app.get('/api/lastfm', apiController.getLastfm);
+
 app.get('/api/nyt', apiController.getNewYorkTimes);
 app.get('/api/steam', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getSteam);
 app.get('/api/stripe', apiController.getStripe);
 app.post('/api/stripe', apiController.postStripe);
 app.get('/api/scraping', apiController.getScraping);
+
 app.get('/api/twilio', apiController.getTwilio);
 app.post('/api/twilio', apiController.postTwilio);
+
 app.get('/api/clockwork', apiController.getClockwork);
 app.post('/api/clockwork', apiController.postClockwork);
+
 app.get('/api/foursquare', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFoursquare);
 app.get('/api/tumblr', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getTumblr);
 app.get('/api/facebook', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getFacebook);
@@ -197,12 +202,15 @@ app.get('/api/paypal', apiController.getPayPal);
 app.get('/api/paypal/success', apiController.getPayPalSuccess);
 app.get('/api/paypal/cancel', apiController.getPayPalCancel);
 app.get('/api/lob', apiController.getLob);
+*/
 app.get('/api/upload', lusca({
   csrf: true
 }), apiController.getFileUpload);
 app.post('/api/upload', upload.single('myFile'), lusca({
   csrf: true
 }), apiController.postFileUpload);
+
+/*
 app.get('/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getPinterest);
 app.post('/api/pinterest', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.postPinterest);
 app.get('/api/here-maps', apiController.getHereMaps);
@@ -211,10 +219,17 @@ app.get('/api/google/drive', passportConfig.isAuthenticated, passportConfig.isAu
 app.get('/api/chart', apiController.getChart);
 app.get('/api/google/sheets', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getGoogleSheets);
 app.get('/api/quickbooks', passportConfig.isAuthenticated, passportConfig.isAuthorized, apiController.getQuickbooks);
+*/
+app.get('/auth/github', passport.authenticate('github'));
+app.get('/auth/github/callback', passport.authenticate('github', {
+  failureRedirect: '/login'
+}), (req, res) => {
+  res.redirect(req.session.returnTo || '/');
+});
 
 /**
  * OAuth authentication routes. (Sign in)
- */
+ *
 app.get('/auth/instagram', passport.authenticate('instagram', {
   scope: ['basic', 'public_content']
 }));
@@ -237,12 +252,7 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
 }), (req, res) => {
   res.redirect(req.session.returnTo || '/');
 });
-app.get('/auth/github', passport.authenticate('github'));
-app.get('/auth/github/callback', passport.authenticate('github', {
-  failureRedirect: '/login'
-}), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
+
 app.get('/auth/google', passport.authenticate('google', {
   scope: ['profile', 'email', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets.readonly'],
   accessType: 'offline',
@@ -268,9 +278,9 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
   res.redirect(req.session.returnTo || '/');
 });
 
-/**
+
  * OAuth authorization routes. (API examples)
- */
+ 
 app.get('/auth/foursquare', passport.authorize('foursquare'));
 app.get('/auth/foursquare/callback', passport.authorize('foursquare', {
   failureRedirect: '/api'
@@ -308,6 +318,7 @@ app.get('/auth/quickbooks/callback', passport.authorize('quickbooks', {
 }), (req, res) => {
   res.redirect(req.session.returnTo);
 });
+*/
 
 /**
  * Error Handler.

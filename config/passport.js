@@ -1,17 +1,17 @@
 const passport = require('passport');
 const refresh = require('passport-oauth2-refresh');
 const axios = require('axios');
-const { Strategy: InstagramStrategy } = require('passport-instagram');
+// const { Strategy: InstagramStrategy } = require('passport-instagram');
 const { Strategy: LocalStrategy } = require('passport-local');
-const { Strategy: FacebookStrategy } = require('passport-facebook');
-const { Strategy: SnapchatStrategy } = require('passport-snapchat');
-const { Strategy: TwitterStrategy } = require('passport-twitter');
+// const { Strategy: FacebookStrategy } = require('passport-facebook');
+// const { Strategy: SnapchatStrategy } = require('passport-snapchat');
+// const { Strategy: TwitterStrategy } = require('passport-twitter');
 const { Strategy: GitHubStrategy } = require('passport-github');
 const { OAuth2Strategy: GoogleStrategy } = require('passport-google-oauth');
-const { Strategy: LinkedInStrategy } = require('passport-linkedin-oauth2');
+// const { Strategy: LinkedInStrategy } = require('passport-linkedin-oauth2');
 const { Strategy: OpenIDStrategy } = require('passport-openid');
-const { OAuthStrategy } = require('passport-oauth');
-const { OAuth2Strategy } = require('passport-oauth');
+// const { OAuthStrategy } = require('passport-oauth');
+// const { OAuth2Strategy } = require('passport-oauth');
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -66,7 +66,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
 
 /**
  * Sign in with Snapchat.
- */
+ 
 passport.use(new SnapchatStrategy({
   clientID: process.env.SNAPCHAT_ID,
   clientSecret: process.env.SNAPCHAT_SECRET,
@@ -117,10 +117,10 @@ passport.use(new SnapchatStrategy({
     });
   }
 }));
-
+*/
 /**
  * Sign in with Facebook.
- */
+ 
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_ID,
   clientSecret: process.env.FACEBOOK_SECRET,
@@ -177,7 +177,7 @@ passport.use(new FacebookStrategy({
     });
   }
 }));
-
+*/
 /**
  * Sign in with GitHub.
  */
@@ -240,7 +240,7 @@ passport.use(new GitHubStrategy({
 
 /**
  * Sign in with Twitter.
- */
+ 
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_KEY,
   consumerSecret: process.env.TWITTER_SECRET,
@@ -291,80 +291,84 @@ passport.use(new TwitterStrategy({
     });
   }
 }));
-
+*/
 /**
  * Sign in with Google.
  */
-const googleStrategyConfig = new GoogleStrategy({
-  clientID: process.env.GOOGLE_ID,
-  clientSecret: process.env.GOOGLE_SECRET,
-  callbackURL: '/auth/google/callback',
-  passReqToCallback: true
-}, (req, accessToken, refreshToken, params, profile, done) => {
-  if (req.user) {
-    User.findOne({ google: profile.id }, (err, existingUser) => {
-      if (err) { return done(err); }
-      if (existingUser && (existingUser.id !== req.user.id)) {
-        req.flash('errors', { msg: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
-        done(err);
-      } else {
-        User.findById(req.user.id, (err, user) => {
-          if (err) { return done(err); }
-          user.google = profile.id;
-          user.tokens.push({
-            kind: 'google',
-            accessToken,
-            accessTokenExpires: moment().add(params.expires_in, 'seconds').format(),
-            refreshToken,
-          });
-          user.profile.name = user.profile.name || profile.displayName;
-          user.profile.gender = user.profile.gender || profile._json.gender;
-          user.profile.picture = user.profile.picture || profile._json.picture;
-          user.save((err) => {
-            req.flash('info', { msg: 'Google account has been linked.' });
-            done(err, user);
-          });
-        });
-      }
-    });
-  } else {
-    User.findOne({ google: profile.id }, (err, existingUser) => {
-      if (err) { return done(err); }
-      if (existingUser) {
-        return done(null, existingUser);
-      }
-      User.findOne({ email: profile.emails[0].value }, (err, existingEmailUser) => {
+
+if(process.env.GOOGLE_ID){
+  const googleStrategyConfig = new GoogleStrategy({
+    clientID: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+    callbackURL: '/auth/google/callback',
+    passReqToCallback: true
+  }, (req, accessToken, refreshToken, params, profile, done) => {
+    if (req.user) {
+      User.findOne({ google: profile.id }, (err, existingUser) => {
         if (err) { return done(err); }
-        if (existingEmailUser) {
-          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.' });
+        if (existingUser && (existingUser.id !== req.user.id)) {
+          req.flash('errors', { msg: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
           done(err);
         } else {
-          const user = new User();
-          user.email = profile.emails[0].value;
-          user.google = profile.id;
-          user.tokens.push({
-            kind: 'google',
-            accessToken,
-            accessTokenExpires: moment().add(params.expires_in, 'seconds').format(),
-            refreshToken,
-          });
-          user.profile.name = profile.displayName;
-          user.profile.gender = profile._json.gender;
-          user.profile.picture = profile._json.picture;
-          user.save((err) => {
-            done(err, user);
+          User.findById(req.user.id, (err, user) => {
+            if (err) { return done(err); }
+            user.google = profile.id;
+            user.tokens.push({
+              kind: 'google',
+              accessToken,
+              accessTokenExpires: moment().add(params.expires_in, 'seconds').format(),
+              refreshToken,
+            });
+            user.profile.name = user.profile.name || profile.displayName;
+            user.profile.gender = user.profile.gender || profile._json.gender;
+            user.profile.picture = user.profile.picture || profile._json.picture;
+            user.save((err) => {
+              req.flash('info', { msg: 'Google account has been linked.' });
+              done(err, user);
+            });
           });
         }
       });
-    });
-  }
-});
-passport.use('google', googleStrategyConfig);
-refresh.use('google', googleStrategyConfig);
+    } else {
+      User.findOne({ google: profile.id }, (err, existingUser) => {
+        if (err) { return done(err); }
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+        User.findOne({ email: profile.emails[0].value }, (err, existingEmailUser) => {
+          if (err) { return done(err); }
+          if (existingEmailUser) {
+            req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.' });
+            done(err);
+          } else {
+            const user = new User();
+            user.email = profile.emails[0].value;
+            user.google = profile.id;
+            user.tokens.push({
+              kind: 'google',
+              accessToken,
+              accessTokenExpires: moment().add(params.expires_in, 'seconds').format(),
+              refreshToken,
+            });
+            user.profile.name = profile.displayName;
+            user.profile.gender = profile._json.gender;
+            user.profile.picture = profile._json.picture;
+            user.save((err) => {
+              done(err, user);
+            });
+          }
+        });
+      });
+    }
+  });
+  passport.use('google', googleStrategyConfig);
+  refresh.use('google', googleStrategyConfig);
+}
+
 
 /**
  * Sign in with LinkedIn.
- */
+ 
 passport.use(new LinkedInStrategy({
   clientID: process.env.LINKEDIN_ID,
   clientSecret: process.env.LINKEDIN_SECRET,
@@ -419,10 +423,10 @@ passport.use(new LinkedInStrategy({
     });
   }
 }));
-
+*/
 /**
  * Sign in with Instagram.
- */
+ 
 passport.use(new InstagramStrategy({
   clientID: process.env.INSTAGRAM_ID,
   clientSecret: process.env.INSTAGRAM_SECRET,
@@ -472,10 +476,10 @@ passport.use(new InstagramStrategy({
     });
   }
 }));
-
+*/
 /**
  * Tumblr API OAuth.
- */
+ 
 passport.use('tumblr', new OAuthStrategy({
   requestTokenURL: 'https://www.tumblr.com/oauth/request_token',
   accessTokenURL: 'https://www.tumblr.com/oauth/access_token',
@@ -494,10 +498,10 @@ passport.use('tumblr', new OAuthStrategy({
     });
   });
 }));
-
+*/
 /**
  * Foursquare API OAuth.
- */
+ 
 passport.use('foursquare', new OAuth2Strategy({
   authorizationURL: 'https://foursquare.com/oauth2/authorize',
   tokenURL: 'https://foursquare.com/oauth2/access_token',
@@ -515,7 +519,7 @@ passport.use('foursquare', new OAuth2Strategy({
     });
   });
 }));
-
+*/
 /**
  * Steam API OpenID.
  */
@@ -578,7 +582,7 @@ passport.use(new OpenIDStrategy({
 
 /**
  * Pinterest API OAuth.
- */
+ 
 passport.use('pinterest', new OAuth2Strategy({
   authorizationURL: 'https://api.pinterest.com/oauth/',
   tokenURL: 'https://api.pinterest.com/v1/oauth/token',
@@ -596,10 +600,10 @@ passport.use('pinterest', new OAuth2Strategy({
     });
   });
 }));
-
+*/
 /**
  * Intuit/QuickBooks API OAuth.
- */
+ 
 const quickbooksStrategyConfig = new OAuth2Strategy({
   authorizationURL: 'https://appcenter.intuit.com/connect/oauth2',
   tokenURL: 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer',
@@ -640,7 +644,7 @@ const quickbooksStrategyConfig = new OAuth2Strategy({
 });
 passport.use('quickbooks', quickbooksStrategyConfig);
 refresh.use('quickbooks', quickbooksStrategyConfig);
-
+*/
 /**
  * Login Required middleware.
  */
