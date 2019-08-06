@@ -1,7 +1,7 @@
 // const { promisify } = require('util');
 // const cheerio = require('cheerio');
 // const graph = require('fbgraph');
-// const { LastFmNode } = require('lastfm');
+ const { LastFmNode } = require('lastfm');
 // const tumblr = require('tumblr.js');
 const GitHub = require('@octokit/rest');
 
