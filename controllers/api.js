@@ -189,11 +189,13 @@ exports.getNewYorkTimes = (req, res, next) => {
       next(new Error(`New York Times API - ${err.response.status} ${err.response.statusText} ${message}`));
     });
 };
+*/
 
 /**
+ * 
  * GET /api/lastfm
  * Last.fm API example.
- *
+ */
 exports.getLastfm = async (req, res, next) => {
   const lastfm = new LastFmNode({
     api_key: process.env.LASTFM_KEY,

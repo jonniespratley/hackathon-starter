@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const Author = require('./models/Author');
-const Book = require('./models/Book');
+const {App, Author, Book, Theme, Tenant} = require('./models');
 
+
+const mockData = require('./test/mock-data');
 
 (async function main() {
 
@@ -9,7 +10,7 @@ const Book = require('./models/Book');
 
 
  
-    mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mongo-games', {
+    mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/hackathon-starter', {
         useNewUrlParser: true 
     })
     .then(() => {
@@ -133,12 +134,41 @@ const Book = require('./models/Book');
         'Super Smash Bros: Brawl',
         'Super Smash Bros',
     ].map(name => {
-        createGame(name, _id);
+        // createGame(name, _id);
     })
 
     
     
-    listGames();
+   // listGames();
+
+
+    function createTenant(obj){
+        const t = new Tenant(obj);
+        return t.save();
+    }
+
+    const tenant = await createTenant({
+        context: '',
+        shared: false,
+        applicationChrome: true,
+        customHeader: {},
+        hostname: 'test-tenant',
+        appConfigUrl: "https://predix-apphub-arcs-prod.run.aws-usw02-pr.ice.predix.io/config",
+        apphubUrl: "https://js-apphub.predix-apphub-prod.run.aws-usw02-pr.ice.predix.io/"
+    })
+
+    mockData.apps.map(async (app) => {
+    app.tenant = tenant._id;
+    const t = new App(app);
+    const resp = await t.save();
+    console.log(resp);
+  });
+    mockData.themes.map(async (theme) => {
+    theme.tenant = tenant._id;
+    const t = new Theme(theme);
+    const resp = await t.save();
+    console.log(resp);
+  });
     
 
 })()

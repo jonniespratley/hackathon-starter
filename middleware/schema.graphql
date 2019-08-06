@@ -1,7 +1,3 @@
-type Query {
-  info: String!
-  feed: [Link!]!
-}
 
 type Mutation {
   post(url: String!, description: String!): Link!
@@ -12,3 +8,66 @@ type Link {
   description: String!
   url: String!
 }
+
+type ExternalUrls { spotify: String }
+
+type ExternalIds { isrc: String }
+
+type Artists { href: String
+  id: String
+  name: String
+  type: String
+  uri: String
+  external_urls: ExternalUrls }
+
+type Images { height: Int url: String width: Int }
+
+type Album { album_type: String
+  href: String
+  id: String
+  name: String
+  release_date: String
+  release_date_precision: String
+  total_tracks: Int
+  type: String
+  uri: String
+  images: [Images ]
+  external_urls: ExternalUrls
+  available_markets: [String ]
+  artists: [Artists ] }
+
+type Items { disc_number: Int
+  duration_ms: Int
+  explicit: Boolean
+  href: String
+  id: String
+  is_local: Boolean
+  name: String
+  popularity: Int
+  preview_url: String
+  track_number: Int
+  type: String
+  uri: String
+  external_urls: ExternalUrls
+  external_ids: ExternalIds
+  available_markets: [String ]
+  artists: [Artists ]
+  album: Album }
+
+type Tracks { href: String
+  limit: Int
+  next: String
+  offset: Int
+  previous: String
+  total: Int
+  items: [Items ] }
+
+type Albums { href: String
+  limit: Int
+  next: String
+  offset: Int
+  previous: String
+  total: Int
+  items: [Items ] }
+
+type Search { tracks: Tracks albums: Albums }
