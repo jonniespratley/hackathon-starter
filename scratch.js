@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
-const {App, Author, Book, Theme, Tenant} = require('./models');
+const {
+    App,
+    Author,
+    Book,
+    Theme,
+    Tenant
+} = require('./models');
 
 
 const mockData = require('./test/mock-data');
@@ -9,30 +15,30 @@ const mockData = require('./test/mock-data');
 
 
 
- 
+
     mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/hackathon-starter', {
-        useNewUrlParser: true 
-    })
-    .then(() => {
-        console.log('You are now connected to Mongo!')
-    })
-    .catch(err => console.error('Something went wrong', err))
-    
-   /* const db = mongoose.connection
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function test() {
-        //console.log('// were connected!')
-    }); */
+            useNewUrlParser: true
+        })
+        .then(() => {
+            console.log('You are now connected to Mongo!')
+        })
+        .catch(err => console.error('Something went wrong', err))
+
+    /* const db = mongoose.connection
+     db.on('error', console.error.bind(console, 'connection error:'));
+     db.once('open', function test() {
+         //console.log('// were connected!')
+     }); */
 
 
-    async function createBookAndAuthor( book ){
+    async function createBookAndAuthor(book) {
         const b = new Book(book);
         const result = await b.save();
         console.log('saved', result);
         return result;
     }
-    
-    
+
+
 
 
     const Publisher = mongoose.model('Publisher', new mongoose.Schema({
@@ -46,6 +52,11 @@ const mockData = require('./test/mock-data');
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Publisher'
         },
+        /* publisher: {
+            type: new mongoose.Schema({
+                companyName: String,
+            })
+        } */
         tags: [String],
         date: {
             type: Date,
@@ -54,10 +65,16 @@ const mockData = require('./test/mock-data');
         onSale: Boolean,
         price: Number
     });
-     
+
     const Game = mongoose.model('Game', gameSchema);
-     
-    async function saveGame({title, publisher, tags, price, onSale = false}) {
+
+    async function saveGame({
+        title,
+        publisher,
+        tags,
+        price,
+        onSale = false
+    }) {
         const game = new Game({
             title,
             publisher,
@@ -65,7 +82,7 @@ const mockData = require('./test/mock-data');
             onSale,
             price,
         });
-     
+
         const result = await game.save();
         console.log(result);
         return result;
@@ -77,7 +94,7 @@ const mockData = require('./test/mock-data');
             firstParty,
             website
         });
-     
+
         const result = await publisher.save();
         console.log(result);
         return result;
@@ -87,13 +104,14 @@ const mockData = require('./test/mock-data');
         const game = new Game({
             title,
             publisher
+
         });
-     
+
         const result = await game.save();
-        console.log( 'createGame', result);
+        console.log('createGame', result);
         return result;
     }
-     
+
     async function listGames() {
         const games = await Game
             .find()
@@ -109,25 +127,24 @@ const mockData = require('./test/mock-data');
         return games;
     }
 
-    async function getNintendoGames() {
-        const games = await Game.find({
-            publisher: 'Nintendo',
-            onSale: true
-        });
-        console.log(games);
-    }
-     
-
-   
 
 
-    
+
+
     // saveGame();
 
-    
-  
 
-    const { _id } = await createPublisher('Nintendo', true, 'https://www.nintendo.com/');
+
+    createGame('Rayman', new Publisher({
+        companyName: 'Ubisoft',
+        firstParty: false,
+        website: 'https://www.ubisoft.com/'
+    }))
+
+
+    const {
+        _id
+    } = await createPublisher('Nintendo', true, 'https://www.nintendo.com/');
     [
         'Super Smash Bros: Ultimate',
         'Super Smash Bros: Melee',
@@ -137,12 +154,12 @@ const mockData = require('./test/mock-data');
         // createGame(name, _id);
     })
 
-    
-    
-   // listGames();
 
 
-    function createTenant(obj){
+    // listGames();
+
+
+    function createTenant(obj) {
         const t = new Tenant(obj);
         return t.save();
     }
@@ -158,17 +175,17 @@ const mockData = require('./test/mock-data');
     })
 
     mockData.apps.map(async (app) => {
-    app.tenant = tenant._id;
-    const t = new App(app);
-    const resp = await t.save();
-    console.log(resp);
-  });
+        app.tenant = tenant._id;
+        const t = new App(app);
+        const resp = await t.save();
+        console.log(resp);
+    });
     mockData.themes.map(async (theme) => {
-    theme.tenant = tenant._id;
-    const t = new Theme(theme);
-    const resp = await t.save();
-    console.log(resp);
-  });
-    
+        theme.tenant = tenant._id;
+        const t = new Theme(theme);
+        const resp = await t.save();
+        console.log(resp);
+    });
+
 
 })()
