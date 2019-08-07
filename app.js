@@ -363,14 +363,59 @@ const getSpotifyToken = (user) => {
 };
 
 /*
- Example
+Spotify API Example 
+Example
  http://localhost:8080/api/spotify?q=deadmau5&type=album,track&limit=2
 */
 app.get('/api/spotify?', passportConfig.isAuthenticated, (req, res, next) => {
   const proxy = requestProxy({
-    // cache: redis.createClient(),
-    // cacheMaxAge: 60,
+    url: "https://api.spotify.com/v1",
+    query: req.query,
+    headers: {
+      "Authorization": `Bearer ${getSpotifyToken(req.user).accessToken}`
+    }
+  });
+  proxy(req, res, next);
+});
+app.get('/api/spotify/:resource?', passportConfig.isAuthenticated, (req, res, next) => {
+  const proxy = requestProxy({
+    url: "https://api.spotify.com/v1/:resource",
+    query: req.query,
+    headers: {
+      "Authorization": `Bearer ${getSpotifyToken(req.user).accessToken}`
+    }
+  });
+  proxy(req, res, next);
+});
+
+/*
+app.get('/api/spotify/search?', passportConfig.isAuthenticated, (req, res, next) => {
+  const proxy = requestProxy({
     url: "https://api.spotify.com/v1/search",
+    query: req.query,
+    headers: {
+      "Authorization": `Bearer ${getSpotifyToken(req.user).accessToken}`
+    }
+  });
+  proxy(req, res, next);
+});
+
+app.get('/api/spotify/browse/:resource', passportConfig.isAuthenticated, (req, res, next) => {
+  const proxy = requestProxy({
+    url: "https://api.spotify.com/v1/browse/:resource",
+    query: req.query,
+    headers: {
+      "Authorization": `Bearer ${getSpotifyToken(req.user).accessToken}`
+    }
+  });
+  proxy(req, res, next);
+});
+*/
+app.get([
+  '/api/spotify/:resource/:id'
+], passportConfig.isAuthenticated, (req, res, next) => {
+  const proxy = requestProxy({
+    url: "https://api.spotify.com/v1/:resource/:id",
     query: req.query,
     headers: {
       "Authorization": `Bearer ${getSpotifyToken(req.user).accessToken}`

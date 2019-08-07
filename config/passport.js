@@ -194,7 +194,15 @@ if(process.env.SPOTIFY_ID){
   (req, accessToken, refreshToken, profile, done) => {
     User.findById(req.user._id, (err, user) => {
       if (err) { return done(err); }
-      user.tokens.push({ kind: 'spotify', accessToken });
+      
+      const existingToken = user.tokens.filter(t => t.kind === 'spotify')[0]
+      const existingIndex = user.tokens.indexOf(existingToken);
+      if(existingToken > -1){
+        user.tokens[existingIndex] = user.tokens[existingIndex] || {};
+        user.tokens[existingIndex].accessToken = accessToken;
+      } else {
+        user.tokens.push({ kind: 'spotify', accessToken });
+      }
       user.save((err) => {
         done(err, user);
       });
