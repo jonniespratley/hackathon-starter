@@ -1,7 +1,7 @@
 // const { promisify } = require('util');
 // const cheerio = require('cheerio');
 // const graph = require('fbgraph');
-// const { LastFmNode } = require('lastfm');
+ const { LastFmNode } = require('lastfm');
 // const tumblr = require('tumblr.js');
 const GitHub = require('@octokit/rest');
 
@@ -189,11 +189,13 @@ exports.getNewYorkTimes = (req, res, next) => {
       next(new Error(`New York Times API - ${err.response.status} ${err.response.statusText} ${message}`));
     });
 };
+*/
 
 /**
+ * 
  * GET /api/lastfm
  * Last.fm API example.
- *
+ */
 exports.getLastfm = async (req, res, next) => {
   const lastfm = new LastFmNode({
     api_key: process.env.LASTFM_KEY,

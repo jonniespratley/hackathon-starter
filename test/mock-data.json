@@ -1,79 +1,266 @@
 {
-  "apps": [
-    {
-      "uri": "/apps/app-1",
-      "id": "app-1",
-      "host": "https://apphub-microapp-seed.run.aws-usw02-dev.ice.predix.io",
-      "path": "/app-1",
-      "template": "/index.html",
-      "location": "main",
-      "navService": null,
-      "order": 0,
-      "label": "Microapp Seed",
-      "icon": "fa-square",
-      "items": [
-        {
-          "label": "Microapp Seed",
-          "icon": "fa-square",
-          "path": "/app-1/#"
-        }
-      ],
-      "capabilities": [],
-      "default": true
-    },
-    {
-      "uri": "/apps/settings",
-      "id": "settings",
-      "host": "https://apphub-microapp-settings-stage.run.aws-usw02-dev.ice.predix.io",
-      "path": "/settings",
-      "template": "/index.html",
-      "location": "settings",
-      "navService": null,
-      "order": 0,
-      "label": null,
-      "icon": null,
-      "items": [
-        {
-          "label": "Settings",
-          "icon": "fa-wrench",
-          "path": "/settings/#"
-        }
-      ],
-      "capabilities": [],
-      "default": false
-    }
-  ],
-  "themes": [
-    [
-      {
-        "baseUri": "https://apphub-chrome-cdn.run.aws-usw02-pr.ice.predix.io",
-        "main": "views/pxh-chrome/main.handlebars",
-        "error": "views/pxh-chrome/error_postchrome.handlebars",
-        "errorChromeless": "views/pxh-chrome/error_postchrome_chromeless.handlebars",
-        "displayName": "pxh-chrome-theme",
-        "demoLink": "https://apphub-chrome-cdn.run.aws-usw02-pr.ice.predix.io",
-        "description": "Default AppHub Chrome"
-      }
-    ],
-    [
-      {
-        "baseUri": "https://polymer-es6.predix-apphub-dev.run.aws-usw02-dev.ice.predix.io/ui-hub-assets/pds-chrome/0",
-        "main": "build/es6/views/main.handlebars",
-        "error": "build/es6/views/error_chromeful.handlebars",
-        "errorChromeless": "build/es6/views/error_chromeless.handlebars",
-        "options": {
-          "Test123": "Updated Theme Option"
-        },
-        "displayName": "polymer-chrome",
-        "description": "someDescription"
-      }
-    ]
-  ],
-  "globalConfig": {
-    "name": "AppHub Test",
-    "logo": false,
-    "logoUri": "",
-    "applicationChrome": false,
-    "globalScripts": []
-  }
+	"globalConfig": {
+		"uri": "/globalconfig/0000-0000-0000-0002",
+		"tenant_id": "0000-0000-0000-0000",
+		"name": "js-apphub",
+		"logo": false,
+		"logo_uri": "",
+		"globalScripts": [],
+		"theme": "pxh-chrome"
+	},
+	"tenant": {
+		"uuid": "0000-0000-0000-0000",
+		"hostname": "js-apphub",
+		"context": "",
+		"shared": false,
+		"appConfigUrl": "https://predix-apphub-arcs-prod.run.aws-usw02-pr.ice.predix.io/config",
+		"apphubUrl": "https://js-apphub.predix-apphub-prod.run.aws-usw02-pr.ice.predix.io/",
+		"applicationChrome": true,
+		"custom_header": {},
+		"service_id": "predix-apphub",
+		"plan_id": "line_aa6-efca-4019-9758-ce7f9c11d706::predix-apphub",
+		"org_id": "1c773064-901c-4acd-93d9-15349bff39de",
+		"space_id": "75b4d4e4-a0fd-465b-8002-d4a46955c7c5"
+	},
+	"apps": [
+		{
+			"tenant_id": "0000-0000-0000-0000",
+			"uri": "/apps/micro-app-1",
+			"id": "micro-app-1",
+			"host": "https://s.codepen.io/jonniespratley/debug/MBeOXx",
+			"path": "/dashboard",
+			"template": "/index.html",
+			"location": "main",
+			"default": true,
+			"navService": null,
+			"items": [
+				{
+					"label": "Dashboard",
+					"icon": "fa-dashboard",
+					"path": "/dashboard",
+					"items": []
+				}
+			],
+			"capabilities": null,
+			"order": 0,
+			"icon": "fa-dashboard",
+			"label": "Dashboard"
+		},
+		{
+			"tenant_id": "0000-0000-0000-0000",
+			"uri": "/apps/settings",
+			"id": "settings",
+			"host": "https://apphub-microapp-settings.run.aws-usw02-pr.ice.predix.io",
+			"path": "/settings",
+			"template": "/index.html",
+			"location": "main",
+			"default": false,
+			"navService": null,
+			"items": [
+				{
+					"label": "Settings",
+					"icon": "fa-gear",
+					"path": "/settings",
+					"items": []
+				}
+			],
+			"capabilities": null,
+			"order": 6,
+			"icon": "fa-gear",
+			"label": "Settings"
+		},
+		{
+			"tenant_id": "0000-0000-0000-0000",
+			"uri": "/apps/micro-app-2",
+			"id": "micro-app-2",
+			"host": "https://apphub-microapp-react-px-polymer-example-cf1prod.run.aws-usw02-pr.ice.predix.io",
+			"path": "/micro-app-2",
+			"template": "/index.html",
+			"location": "main",
+			"default": false,
+			"navService": null,
+			"items": [
+				{
+					"label": "Microapp Polymer",
+					"icon": "fa-square",
+					"path": "/micro-app-2",
+					"items": []
+				}
+			],
+			"capabilities": null,
+			"order": 3,
+			"icon": "fa-square",
+			"label": "Microapp Polymer"
+		},
+		{
+			"tenant_id": "0000-0000-0000-0000",
+			"uri": "/apps/micro-app-3",
+			"id": "micro-app-3",
+			"host": "https://apphub-microapp-seed-next.run.aws-usw02-pr.ice.predix.io",
+			"path": "/micro-app-3",
+			"template": "/index.html",
+			"location": "main",
+			"default": false,
+			"navService": null,
+			"items": [
+				{
+					"label": "Microapp Seed",
+					"icon": "fa-square",
+					"path": "/micro-app-3",
+					"items": []
+				}
+			],
+			"capabilities": null,
+			"order": 2,
+			"icon": "fa-square",
+			"label": "Microapp Seed"
+		},
+		{
+			"tenant_id": "0000-0000-0000-0000",
+			"uri": "/apps/micro-app-4",
+			"id": "micro-app-4",
+			"host": "https://apphub-microapp-angular-example-cf1prod.run.aws-usw02-pr.ice.predix.io",
+			"path": "/microapp-angular-4",
+			"template": "/index.html",
+			"location": "main",
+			"default": false,
+			"navService": null,
+			"items": [
+				{
+					"label": "Microapp Angular",
+					"icon": "fa-gear",
+					"path": "/microapp-angular-4",
+					"items": []
+				}
+			],
+			"capabilities": null,
+			"order": 1,
+			"icon": "fa-gear",
+			"label": "Microapp Angular"
+		},
+		{
+			"tenant_id": "0000-0000-0000-0000",
+			"uri": "/apps/micro-app-1549577657154",
+			"id": "micro-app-1549577657154",
+			"host": "https://codesandbox.io/embed",
+			"path": "/react-starter",
+			"template": "/1rzn7pxvy4?autoresize=1&view=preview",
+			"location": "main",
+			"default": false,
+			"navService": null,
+			"items": [
+				{
+					"label": "React Starter",
+					"icon": "fa-codepen",
+					"path": "/react-starter",
+					"items": []
+				}
+			],
+			"capabilities": null,
+			"order": 4,
+			"icon": "fa-codepen",
+			"label": "React Starter"
+		},
+		{
+			"tenant_id": "0000-0000-0000-0000",
+			"uri": "/apps/micro-app-1550079074146",
+			"id": "micro-app-1550079074146",
+			"host": "https://angular-6merc1.stackblitz.io",
+			"path": "/angular-6",
+			"template": "/index.html",
+			"location": "main",
+			"default": false,
+			"navService": null,
+			"items": [
+				{
+					"label": "Angular 6",
+					"icon": "fa-square",
+					"path": "/angular-6",
+					"items": [
+						{
+							"label": "Dashboard",
+							"path": "/angular-6/#/dashboard"
+						},
+						{
+							"label": "Heros",
+							"path": "/angular-6/#/heros"
+						}
+					]
+				}
+			],
+			"capabilities": null,
+			"order": 5,
+			"icon": "fa-square",
+			"label": "Angular 6"
+		}
+	],
+	"themes": [
+		{
+			"uri": "/themes/pxh-chrome",
+			"tenant_id": "0000-0000-0000-0000",
+			"baseUri": "https://apphub-chrome-cdn.run.aws-usw02-pr.ice.predix.io",
+			"main": "views/pxh-chrome/main.handlebars",
+			"error": "views/pxh-chrome/error.handlebars",
+			"errorChromeless": "views/pxh-chrome/error.handlebars",
+			"options": null,
+			"display_name": "pxh-chrome",
+			"description": "Legacy pxh chrome",
+			"demoLink": null,
+			"is_internal": false
+		},
+		{
+			"uri": "/themes/theme-material-design",
+			"tenant_id": "0000-0000-0000-0000",
+			"baseUri": "https://apphub-theme-seed-cdn.run.aws-usw02-pr.ice.predix.io",
+			"main": "views/layouts/main.handlebars",
+			"error": "views/layouts/error.handlebars",
+			"errorChromeless": "views/layouts/error_minimal.handlebars",
+			"options": null,
+			"display_name": "theme-material-design",
+			"description": null,
+			"demoLink": null,
+			"is_internal": false
+		},
+		{
+			"uri": "/themes/theme-bootstrap-4",
+			"tenant_id": "0000-0000-0000-0000",
+			"baseUri": "https://apphub-theme-seed-cdn.run.aws-usw02-pr.ice.predix.io",
+			"main": "views/layouts/main-bootstrap.handlebars",
+			"error": "views/layouts/error.handlebars",
+			"errorChromeless": "views/layouts/error_minimal.handlebars",
+			"options": null,
+			"display_name": "theme-bootstrap-4",
+			"description": null,
+			"demoLink": null,
+			"is_internal": false
+		},
+		{
+			"uri": "/themes/fe16c515-76c8-46b5-b8d4-4c1a52c7e8df",
+			"tenant_id": "0000-0000-0000-0000",
+			"baseUri": "https://apphub-chrome-cdn.run.aws-usw02-pr.ice.predix.io",
+			"main": "views/main.handlebars",
+			"error": "views/error.handlebars",
+			"errorChromeless": "view/error.handlebars",
+			"options": null,
+			"display_name": "test-invalid",
+			"description": "Legacy pxh chrome",
+			"demoLink": null,
+			"is_internal": false
+		},
+		{
+			"uri": "/themes/apphub-chrome",
+			"tenant_id": "0000-0000-0000-0000",
+			"baseUri": "https://apphub-chrome-cdn.run.aws-usw02-pr.ice.predix.io",
+			"main": "views/layouts/main.handlebars",
+			"error": "views/layouts/error.handlebars",
+			"errorChromeless": "/views/layouts/error_minimal.handlebars",
+			"options": {
+				"theme": "light"
+			},
+			"display_name": "apphub-chrome",
+			"description": "Modern apphub chrome",
+			"demoLink": null,
+			"is_internal": false
+		}
+	]
 }

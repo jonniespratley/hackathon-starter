@@ -11,7 +11,7 @@ const { OAuth2Strategy: GoogleStrategy } = require('passport-google-oauth');
 // const { Strategy: LinkedInStrategy } = require('passport-linkedin-oauth2');
 const { Strategy: OpenIDStrategy } = require('passport-openid');
 // const { OAuthStrategy } = require('passport-oauth');
-// const { OAuth2Strategy } = require('passport-oauth');
+const { OAuth2Strategy } = require('passport-oauth');
 const _ = require('lodash');
 const moment = require('moment');
 
@@ -179,6 +179,88 @@ passport.use(new FacebookStrategy({
 }));
 */
 /**
+ * Sign in with Spotify.
+ */
+if(process.env.SPOTIFY_ID){
+  passport.use('spotify', new OAuth2Strategy({
+    authorizationURL: 'https://accounts.spotify.com/authorize',
+    tokenURL: 'https://accounts.spotify.com/api/token',
+    clientID: process.env.SPOTIFY_ID,
+    clientSecret: process.env.SPOTIFY_SECRET,
+    callbackURL: `${process.env.BASE_URL}/auth/spotify/callback`,
+    scope: ['user-read-private', 'user-read-email'],
+    passReqToCallback: true
+  },
+  (req, accessToken, refreshToken, profile, done) => {
+    User.findById(req.user._id, (err, user) => {
+      if (err) { return done(err); }
+      user.tokens.push({ kind: 'spotify', accessToken });
+      user.save((err) => {
+        done(err, user);
+      });
+    });
+  }));
+  /* passport.use(new OAuth2Strategy({
+    clientID: process.env.SPOTIFY_ID,
+    clientSecret: process.env.SPOTIFY_SECRET,
+    callbackURL: `${process.env.BASE_URL}/auth/spotify/callback`,
+    passReqToCallback: true,
+    scope: ['user-read-private', 'user-read-email']
+  }, (req, accessToken, refreshToken, profile, done) => {
+    if (req.user) {
+      console.log('spotify', 'find', req.user, profile);
+      User.findOne({ spotify: profile.id }, (err, existingUser) => {
+        if (existingUser) {
+          req.flash('errors', { msg: 'There is already a Spotify account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
+          done(err);
+        } else {
+          User.findById(req.user.id, (err, user) => {
+            if (err) { return done(err); }
+            user.spotify = profile.id;
+            user.tokens.push({ kind: 'spotify', accessToken });
+
+            user.profile.name = user.profile.name || profile.displayName;
+            user.profile.picture = user.profile.picture || profile._json.avatar_url;
+            user.profile.location = user.profile.location || profile._json.location;
+            user.profile.website = user.profile.website || profile._json.blog;
+            user.save((err) => {
+              req.flash('info', { msg: 'Spotify account has been linked.' });
+              done(err, user);
+            });
+          });
+        }
+      });
+    } else {
+      User.findOne({ spotify: profile.id }, (err, existingUser) => {
+        if (err) { return done(err); }
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+        User.findOne({ email: profile._json.email }, (err, existingEmailUser) => {
+          if (err) { return done(err); }
+          if (existingEmailUser) {
+            req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with Spotify manually from Account Settings.' });
+            done(err);
+          } else {
+            const user = new User();
+            user.email = _.get(_.orderBy(profile.emails, ['primary', 'verified'], ['desc', 'desc']), [0, 'value'], null);
+            user.spotify = profile.id;
+            user.tokens.push({ kind: 'spotify', accessToken });
+            user.profile.name = profile.displayName;
+            user.profile.picture = profile._json.avatar_url;
+            user.profile.location = profile._json.location;
+            user.profile.website = profile._json.blog;
+            user.save((err) => {
+              done(err, user);
+            });
+          }
+        });
+      });
+    }
+  }));
+  */
+}
+/**
  * Sign in with GitHub.
  */
 passport.use(new GitHubStrategy({
@@ -297,6 +379,7 @@ passport.use(new TwitterStrategy({
  */
 
 if(process.env.GOOGLE_ID){
+  
   const googleStrategyConfig = new GoogleStrategy({
     clientID: process.env.GOOGLE_ID,
     clientSecret: process.env.GOOGLE_SECRET,

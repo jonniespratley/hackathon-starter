@@ -2,9 +2,25 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 require('sinon-mongoose');
 
-const User = require('../models/User');
 
-describe('User Model', () => {
+const { User, Theme } = require('../models');
+
+const mockData = require('./mock-data');
+
+
+describe('Theme Model', () => {
+  it('should create new theme', async () => {
+   
+    return mockData.themes.map(async (theme) => {
+      const t = new Theme(theme);
+      const resp = await t.save();
+      console.log(resp);
+      expect(resp);
+    });
+  });
+});
+
+xdescribe('User Model', () => {
   it('should create a new user', (done) => {
     const UserMock = sinon.mock(new User({ email: 'test@gmail.com', password: 'root' }));
     const user = UserMock.object;
