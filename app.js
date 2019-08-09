@@ -412,10 +412,10 @@ app.get('/api/spotify/browse/:resource', passportConfig.isAuthenticated, (req, r
 });
 */
 app.get([
-  '/api/spotify/:resource/:id'
+  '/api/spotify/:resource/:id?/:sub?'
 ], passportConfig.isAuthenticated, (req, res, next) => {
   const proxy = requestProxy({
-    url: "https://api.spotify.com/v1/:resource/:id",
+    url: "https://api.spotify.com/v1/:resource/:id/:sub",
     query: req.query,
     headers: {
       "Authorization": `Bearer ${getSpotifyToken(req.user).accessToken}`

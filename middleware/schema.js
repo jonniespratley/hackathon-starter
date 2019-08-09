@@ -32,6 +32,31 @@ const typeDefs = gql `
     url: String!
   }
 
+
+
+  type Tracks { 
+    href: String 
+    total: Int 
+  }
+
+  type Epoc { 
+    id: String
+    image: String
+    name: String
+    tracks: Tracks 
+  }
+
+  type User { 
+    username: String 
+    image: String 
+    items: [Epoc] 
+  }
+
+
+  type Session {
+    user: user
+  }
+
   # The "Query" type is the root of all GraphQL queries.
   # (A "Mutation" type will be covered later on.)
   type Query {
@@ -41,6 +66,9 @@ const typeDefs = gql `
     author: Author
     getBooks: [Book]
     getAuthors: [Author]
+
+    getSession(username: String!): Session
+    getEpocs(username: String!): [Epoc]
 
     # "Fetch a single link by its id"
     link(id: ID!): Link

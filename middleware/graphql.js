@@ -3,9 +3,9 @@ const {
 } = require('apollo-server-express');
 
 const query = require('qs-middleware');
-
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
+const rootValue = require('./rootValue');
 
 module.exports = function boot(app) {
 
@@ -13,19 +13,11 @@ module.exports = function boot(app) {
     console.log('sessionid:', req.session.id, req.session);
     next();
   }
-  const root = {
-    ip(args, request) {
-      return request.ip;
-    },
-    session(args, request) {
-      console.log('root.session', request);
-      return null;
-    }
-  };
+
 
   const server = new ApolloServer({
     debug: true,
-    rootValue: root,
+    rootValue,
     typeDefs,
     resolvers
   });
@@ -34,17 +26,12 @@ module.exports = function boot(app) {
   const path = '/graphql';
 
 
-
   app.use(query());
   app.use(loggingMiddleware)
   app.get('/session', (req, res) => {
     res.send(req.session);
   })
-
-
-  console.log('graphql', app);
-
-
+  
   server.applyMiddleware({
     app,
     path
