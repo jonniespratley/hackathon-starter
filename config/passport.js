@@ -198,7 +198,7 @@ if(process.env.SPOTIFY_ID){
       if (err) { return done(err); }
       
       const existingTokens = user.tokens.filter(t => t.kind !== 'spotify')
-      user.tokens = [...existingTokens, { kind: 'spotify', accessToken }];
+      user.tokens = [...existingTokens, { kind: 'spotify', accessToken, refreshToken }];
       
       user.save((err) => {
         done(err, user);
