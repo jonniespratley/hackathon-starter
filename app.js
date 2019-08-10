@@ -30,7 +30,7 @@ dotenv.config({
   path: process.env.USE_ENV || '.env.dev'
 });
 
-console.log(process.env);
+
 /**
  * Controllers (route handlers).
  */

@@ -4,11 +4,7 @@ const EpochSchema = new mongoose.Schema({
   image: String,
   name: String,
   tracks: Array,
-  visible: Boolean,
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
+  visible: Boolean
 });
 
 const Epoch = mongoose.model('Epoch', EpochSchema);

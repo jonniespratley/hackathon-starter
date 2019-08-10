@@ -1,0 +1,710 @@
+{
+  "href": "https://api.spotify.com/v1/users/shawnsakamoto/playlists?offset=0&limit=20",
+  "items": [
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/1jZBfxuDddTPxZBAVKgVoA"
+          },
+          "href": "https://api.spotify.com/v1/playlists/1jZBfxuDddTPxZBAVKgVoA",
+          "id": "1jZBfxuDddTPxZBAVKgVoA",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/4c8cd8acd72f0f4bbcd72829dbb78bee748b09a1",
+                  "width": null
+              }
+          ],
+          "name": "7.2019",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjQsNGU2MDRhNThjODkwNmNlYzg2ODBmYTIyYTI2NDk0NDM5NDA5YTRlMA==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/1jZBfxuDddTPxZBAVKgVoA/tracks",
+              "total": 21
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:1jZBfxuDddTPxZBAVKgVoA"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/0QZHFFiBfq5NoIpnUIjHRS"
+          },
+          "href": "https://api.spotify.com/v1/playlists/0QZHFFiBfq5NoIpnUIjHRS",
+          "id": "0QZHFFiBfq5NoIpnUIjHRS",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/14bac771c34757f9d7effde2f3435950e28a9530",
+                  "width": null
+              }
+          ],
+          "name": "6.2019",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjIsZDE4M2JmYzJlYmQyZmI3Mjk1MzI4NDY3MGQ2ZmJiNmViN2FjNjRiNg==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/0QZHFFiBfq5NoIpnUIjHRS/tracks",
+              "total": 19
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:0QZHFFiBfq5NoIpnUIjHRS"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/3IDQY9i1kw63UjkS0jg0Q8"
+          },
+          "href": "https://api.spotify.com/v1/playlists/3IDQY9i1kw63UjkS0jg0Q8",
+          "id": "3IDQY9i1kw63UjkS0jg0Q8",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/329de46470247a240d6a6f8ae8410270d4c8f909",
+                  "width": null
+              }
+          ],
+          "name": "5.2019",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjEsZGY1NzEzOWZmNGFkYWJkOWI4MmRjZjU4YWUyZjAwYmVlZGU1MTI0Mw==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/3IDQY9i1kw63UjkS0jg0Q8/tracks",
+              "total": 18
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:3IDQY9i1kw63UjkS0jg0Q8"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/6woWXieyYvOjqrN2xdusty"
+          },
+          "href": "https://api.spotify.com/v1/playlists/6woWXieyYvOjqrN2xdusty",
+          "id": "6woWXieyYvOjqrN2xdusty",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/505260384764fd27ac04c00ce6aca21033d291f6",
+                  "width": null
+              }
+          ],
+          "name": "4.2019",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjQsM2UyNTRmNzBmNzE5ZGRkMWQwYmNlOGMwZDA2MGIzOTE1NmM3NTY3Mw==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/6woWXieyYvOjqrN2xdusty/tracks",
+              "total": 21
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:6woWXieyYvOjqrN2xdusty"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/0CrTSotRiV1s2I8f4cZKOg"
+          },
+          "href": "https://api.spotify.com/v1/playlists/0CrTSotRiV1s2I8f4cZKOg",
+          "id": "0CrTSotRiV1s2I8f4cZKOg",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/cc60eca9c044a0e5d8cf6ebf04098cf5d560b937",
+                  "width": null
+              }
+          ],
+          "name": "3.2019",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjQsNTgyNGUyODVjNjlmNGI3NjA3ODA1ODQ3NmE0NzU2NWU1MTM2OGEwYg==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/0CrTSotRiV1s2I8f4cZKOg/tracks",
+              "total": 21
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:0CrTSotRiV1s2I8f4cZKOg"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/7DIRXVjgnmQDJzy8lmVcjC"
+          },
+          "href": "https://api.spotify.com/v1/playlists/7DIRXVjgnmQDJzy8lmVcjC",
+          "id": "7DIRXVjgnmQDJzy8lmVcjC",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/0a3ed3cc51a1c09b52241d1234818171995fd5f4",
+                  "width": null
+              }
+          ],
+          "name": "2.2019",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjIsNDQxYWZiNzczNzQ1ZjdkYjFhODRlZjVjMTExMzgwMDZjNzgxNDg0OA==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/7DIRXVjgnmQDJzy8lmVcjC/tracks",
+              "total": 19
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:7DIRXVjgnmQDJzy8lmVcjC"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/4KSFAjcj89oohGI09qo93S"
+          },
+          "href": "https://api.spotify.com/v1/playlists/4KSFAjcj89oohGI09qo93S",
+          "id": "4KSFAjcj89oohGI09qo93S",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/71375093d87b22503d626798d77dd94e9c8b061a",
+                  "width": null
+              }
+          ],
+          "name": "1.2019",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjEsYTRiOGM5NGE3ZjEzYTE1OTQ2NGU3ZjcwZmNjOTQzYWVhZWIyZjkxZg==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/4KSFAjcj89oohGI09qo93S/tracks",
+              "total": 18
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:4KSFAjcj89oohGI09qo93S"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/4gbaO4SvGQ8VCQGwtMnGRn"
+          },
+          "href": "https://api.spotify.com/v1/playlists/4gbaO4SvGQ8VCQGwtMnGRn",
+          "id": "4gbaO4SvGQ8VCQGwtMnGRn",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/608659509d60a357bdd883dae2e375b75a1f72b6",
+                  "width": null
+              }
+          ],
+          "name": "12.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjQsMzg0ODc2NjZiZmY3YWVjYTIxNzU4NjJjZmU0MTExYWEzMzBkNmVlZQ==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/4gbaO4SvGQ8VCQGwtMnGRn/tracks",
+              "total": 21
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:4gbaO4SvGQ8VCQGwtMnGRn"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/1ofJSFraWyeZEGisxs2JKm"
+          },
+          "href": "https://api.spotify.com/v1/playlists/1ofJSFraWyeZEGisxs2JKm",
+          "id": "1ofJSFraWyeZEGisxs2JKm",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/39ee0c1f9a8e2774a66aab62db4532df46d83c91",
+                  "width": null
+              }
+          ],
+          "name": "11.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjQsZGMxNWEyNzIwMDQ3NGQ4NjRjM2RiNmQ1MzVhNjhmMWM4YWI5YTkyMQ==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/1ofJSFraWyeZEGisxs2JKm/tracks",
+              "total": 20
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:1ofJSFraWyeZEGisxs2JKm"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/5l3wc90ULYjf6SMxQIgolF"
+          },
+          "href": "https://api.spotify.com/v1/playlists/5l3wc90ULYjf6SMxQIgolF",
+          "id": "5l3wc90ULYjf6SMxQIgolF",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/feec72c89966ef4f1a473f6d28031ca9e171d31e",
+                  "width": null
+              }
+          ],
+          "name": "10.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjEsYmNlNGE2YTY3NTMzNjM4ODljMjc0ZTQ2YjQyOWE4NjNkYmE5YmYxYg==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/5l3wc90ULYjf6SMxQIgolF/tracks",
+              "total": 18
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:5l3wc90ULYjf6SMxQIgolF"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/2W0CBFYcmOigGWtVumRWF1"
+          },
+          "href": "https://api.spotify.com/v1/playlists/2W0CBFYcmOigGWtVumRWF1",
+          "id": "2W0CBFYcmOigGWtVumRWF1",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/e207b17409567227b557f2e038045a81ce4f167b",
+                  "width": null
+              }
+          ],
+          "name": "9.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjIsYmYwNGVjOGFiNjNiZjJiYjdhNzM0ZDM4OWNkYzVkOTBhM2VlMTBiNQ==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/2W0CBFYcmOigGWtVumRWF1/tracks",
+              "total": 19
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:2W0CBFYcmOigGWtVumRWF1"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/00I0IRbR7Xr5RduSDhakyd"
+          },
+          "href": "https://api.spotify.com/v1/playlists/00I0IRbR7Xr5RduSDhakyd",
+          "id": "00I0IRbR7Xr5RduSDhakyd",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/937d3d97ede20b9fb6cde8918e9255d153e11eae",
+                  "width": null
+              }
+          ],
+          "name": "8.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjIsMjEzNWZiYmI5MjYyNTg0NzRhZmE3ZjE2YjhkZDZkMTk3ZGFjZGNiZA==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/00I0IRbR7Xr5RduSDhakyd/tracks",
+              "total": 19
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:00I0IRbR7Xr5RduSDhakyd"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/1CcKpTjgbmMtV2t8IJFm7f"
+          },
+          "href": "https://api.spotify.com/v1/playlists/1CcKpTjgbmMtV2t8IJFm7f",
+          "id": "1CcKpTjgbmMtV2t8IJFm7f",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/f89dddcc160fa03ab05b4465f2ff44caee5557e2",
+                  "width": null
+              }
+          ],
+          "name": "7.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjMsMGM5YmYwMzMxZTg5ZDFlNTI1NmYxMmQxNjc5Mzc3ZTEwNWVlMDA0MA==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/1CcKpTjgbmMtV2t8IJFm7f/tracks",
+              "total": 18
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:1CcKpTjgbmMtV2t8IJFm7f"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/2oFS52tvg76bmxphjlm44R"
+          },
+          "href": "https://api.spotify.com/v1/playlists/2oFS52tvg76bmxphjlm44R",
+          "id": "2oFS52tvg76bmxphjlm44R",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/9d3493f0f9d8196b6b94750246eb987e048a64cc",
+                  "width": null
+              }
+          ],
+          "name": "6.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjQsNzA0ZDE1YmQxMTVmNmM0ZTY2NTI3Mzk3YzA2ZjYyZDcwYjBjZDMyYw==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/2oFS52tvg76bmxphjlm44R/tracks",
+              "total": 19
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:2oFS52tvg76bmxphjlm44R"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/4IzCqXTRGMbrzEJlkelf1U"
+          },
+          "href": "https://api.spotify.com/v1/playlists/4IzCqXTRGMbrzEJlkelf1U",
+          "id": "4IzCqXTRGMbrzEJlkelf1U",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/f9eae8677118aba81f5fd66018686c033c6333cc",
+                  "width": null
+              }
+          ],
+          "name": "5.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjIsYjI1NDMwNTNkNDdhODRmZTdjZDRlNTkwODdmYmU4NWRjMTJmMWFhNA==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/4IzCqXTRGMbrzEJlkelf1U/tracks",
+              "total": 19
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:4IzCqXTRGMbrzEJlkelf1U"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/0TdxYPQf5sVZHo58I8VKdv"
+          },
+          "href": "https://api.spotify.com/v1/playlists/0TdxYPQf5sVZHo58I8VKdv",
+          "id": "0TdxYPQf5sVZHo58I8VKdv",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/8daea1ed80da144848178724a43ad27fe209a9dc",
+                  "width": null
+              }
+          ],
+          "name": "4.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjEsZjU1Nzk1NDY2MzkyOWRjZGE0MDAyY2JmZDFmZWIzN2NiNTdhOTUzYg==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/0TdxYPQf5sVZHo58I8VKdv/tracks",
+              "total": 18
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:0TdxYPQf5sVZHo58I8VKdv"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/3RGnKpxkXjFchcUN8nuAvk"
+          },
+          "href": "https://api.spotify.com/v1/playlists/3RGnKpxkXjFchcUN8nuAvk",
+          "id": "3RGnKpxkXjFchcUN8nuAvk",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/40846a1fc1c6765f08779c3d2824d537716172c5",
+                  "width": null
+              }
+          ],
+          "name": "3.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjAsOTYxNjIxMmQ4YTgyMTJjZTY2Mzk3ZWZmZGQxZmU5OTAyNzcwMGU0Mw==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/3RGnKpxkXjFchcUN8nuAvk/tracks",
+              "total": 17
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:3RGnKpxkXjFchcUN8nuAvk"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/2UEkKxR8S8GQAA2RmQKuP0"
+          },
+          "href": "https://api.spotify.com/v1/playlists/2UEkKxR8S8GQAA2RmQKuP0",
+          "id": "2UEkKxR8S8GQAA2RmQKuP0",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/6141154d413e60b92625cd4ce8db9148c2de764c",
+                  "width": null
+              }
+          ],
+          "name": "2.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjMsMTM1MDM5NTM1MDhlNzcxYjg1ZThlYWY5ZDljZWI4YTQ2Nzk4NTg0Mw==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/2UEkKxR8S8GQAA2RmQKuP0/tracks",
+              "total": 17
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:2UEkKxR8S8GQAA2RmQKuP0"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/1ZZqQIsI8Q8cV8RUO6O4vf"
+          },
+          "href": "https://api.spotify.com/v1/playlists/1ZZqQIsI8Q8cV8RUO6O4vf",
+          "id": "1ZZqQIsI8Q8cV8RUO6O4vf",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/7adc447ac5d3ea3193fd6d2fb30011a008dd9965",
+                  "width": null
+              }
+          ],
+          "name": "1.2018",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjAsY2IyMjVkYTZmYzc0OWNmNzE1ZDM1ODVkYjJiYzRkNWZhZmMxNzcxZQ==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/1ZZqQIsI8Q8cV8RUO6O4vf/tracks",
+              "total": 17
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:1ZZqQIsI8Q8cV8RUO6O4vf"
+      },
+      {
+          "collaborative": false,
+          "external_urls": {
+              "spotify": "https://open.spotify.com/playlist/34aHB6rRI9TnLB41wPxRY2"
+          },
+          "href": "https://api.spotify.com/v1/playlists/34aHB6rRI9TnLB41wPxRY2",
+          "id": "34aHB6rRI9TnLB41wPxRY2",
+          "images": [
+              {
+                  "height": null,
+                  "url": "https://pl.scdn.co/images/pl/default/d6a1f55a6f30afdce735bff315818d89c420b9ec",
+                  "width": null
+              }
+          ],
+          "name": "12.2017",
+          "owner": {
+              "display_name": "Shawn Sakamoto",
+              "external_urls": {
+                  "spotify": "https://open.spotify.com/user/shawnsakamoto"
+              },
+              "href": "https://api.spotify.com/v1/users/shawnsakamoto",
+              "id": "shawnsakamoto",
+              "type": "user",
+              "uri": "spotify:user:shawnsakamoto"
+          },
+          "primary_color": null,
+          "public": true,
+          "snapshot_id": "MjIsZDBiZDY0YzFiMDY3ZDMxZWI0OGNjYzk1MWZkMWJhMzVjMWZhMmM3NA==",
+          "tracks": {
+              "href": "https://api.spotify.com/v1/playlists/34aHB6rRI9TnLB41wPxRY2/tracks",
+              "total": 18
+          },
+          "type": "playlist",
+          "uri": "spotify:playlist:34aHB6rRI9TnLB41wPxRY2"
+      }
+  ],
+  "limit": 20,
+  "next": "https://api.spotify.com/v1/users/shawnsakamoto/playlists?offset=20&limit=20",
+  "offset": 0,
+  "previous": null,
+  "total": 23
+}

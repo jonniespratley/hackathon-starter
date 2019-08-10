@@ -20,11 +20,7 @@ const typeDefs = gql `
     books: [Book]
   }
 
-  type User {
-    id: ID!
-    name: String!
-    age: Int!
-  }
+
 
   type Link {
     id: ID!
@@ -54,7 +50,7 @@ const typeDefs = gql `
 
 
   type Session {
-    user: user
+    user: User
   }
 
   # The "Query" type is the root of all GraphQL queries.
@@ -68,7 +64,8 @@ const typeDefs = gql `
     getAuthors: [Author]
 
     getSession(username: String!): Session
-    getEpocs(username: String!): [Epoc]
+    
+    getEpochs(username: String!): [ Epoc ]
 
     # "Fetch a single link by its id"
     link(id: ID!): Link

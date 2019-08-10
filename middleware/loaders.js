@@ -34,7 +34,22 @@ function EpochModel(o){
     tracks: o.tracks
   }
 };
-/* Test */
+const User = require('../models/User');
+
+async function getUser(email){
+  console.log('Get User', email);
+  return User.findOne({email})
+  
+}
+module.exports = {
+  getUser,
+  EpochModel,
+  createLoaders,
+  genLoaders
+}
+
+
+/*
 (async function main(){
   const token = 'BQCCb3jjOyblcTrNmsxlx-pF9Lu5yivTx4ckl8xGnGWdAUe-ZJvKfANJ73dV8IrwHeopjf4WdJY1_jlVWUY6Dluv86mpcsG3bSFLnFqGpvKyXdyGcJqPGsWfiXHUmKM92AORwp3S32eup1fBs_ms5XRnR3M0xIVjfZa4_RtGRzD_ppIWX4cQ';
   const loaders = createLoaders(token);
@@ -43,10 +58,10 @@ function EpochModel(o){
 
   
 
-  /*
+  
   const d = data.items.map(o => new EpochModel(o));
   console.log(JSON.stringify(d, null, 2));
-  */
+  
 const mongoose = require('mongoose');
  mongoose.connect(process.env.MONGODB_URI);
  mongoose.connection.on('error', (err) => {
@@ -67,3 +82,4 @@ console.log('result', res);
 
 
 })()
+*/

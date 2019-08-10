@@ -189,20 +189,17 @@ if(process.env.SPOTIFY_ID){
     clientSecret: process.env.SPOTIFY_SECRET,
     callbackURL: `${process.env.BASE_URL}/auth/spotify/callback`,
     scope: ['user-read-private', 'user-read-email'],
+    
+    refreshToken: `https://accounts.spotify.com/api/token`,
     passReqToCallback: true
   },
   (req, accessToken, refreshToken, profile, done) => {
     User.findById(req.user._id, (err, user) => {
       if (err) { return done(err); }
       
-      const existingToken = user.tokens.filter(t => t.kind === 'spotify')[0]
-      const existingIndex = user.tokens.indexOf(existingToken);
-      if(existingToken > -1){
-        user.tokens[existingIndex] = user.tokens[existingIndex] || {};
-        user.tokens[existingIndex].accessToken = accessToken;
-      } else {
-        user.tokens.push({ kind: 'spotify', accessToken });
-      }
+      const existingTokens = user.tokens.filter(t => t.kind !== 'spotify')
+      user.tokens = [...existingTokens, { kind: 'spotify', accessToken }];
+      
       user.save((err) => {
         done(err, user);
       });
