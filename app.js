@@ -2,6 +2,10 @@
  * Module dependencies.
  */
 const express = require('express');
+const requestProxy = require('express-request-proxy');
+const redis = require("redis"); 
+require("redis-streams")(redis);
+
 const compression = require('compression');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -38,6 +42,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const playlistsController = require('./controllers/playlists');
 
 /**
  * API keys and Passport configuration.
@@ -113,10 +118,67 @@ app.use((req, res, next) => {
 // pp.use(lusca.xframe('SAMEORIGIN'));
 // app.use(lusca.xssProtection(true));
 app.disable('x-powered-by');
+
+
+
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
+const apps = {
+  'app1': 'https://apphub-microapp-seed.run.aws-usw02-pr.ice.predix.io/'
+};
+/* TODO - Proxy to App Example */
+app.all("/apps/:app?", function middleware(req, res, next){
+  console.log('proxy request', req.params, req.session);
+  if(req.params.app){
+    const url = apps[req.params.app];
+    
+    if(url){
+      req.session.appUrl = url;
+      req.appUrl = url;
+      req.session.save();
+      next();
+    }
+  } else {
+    next();
+  }
+  
+}, (req, res, next) => {
+  const {appUrl} = req.session;
+  const p = requestProxy({
+    cache: redis.createClient(),
+    cacheMaxAge: 60,
+    url: `${appUrl}/*`,
+    query: {
+      secret_key: process.env.SOMEAPI_SECRET_KEY
+    },
+    headers: {
+      "X-Custom-Header": process.env.SOMEAPI_CUSTOM_HEADER
+    }
+  });
+  
+  p(req, res, next);
+});
+
+/*  TODO - Proxy DB Example */ 
+
+app.all("/api/db/:resource?/:id?",
+  requestProxy({
+    cache: redis.createClient(),
+    cacheMaxAge: 60,
+    url: "https://apphub-microapp-seed.run.aws-usw02-pr.ice.predix.io/api/db/:resource?/:id?",
+    query: {
+      secret_key: process.env.SOMEAPI_SECRET_KEY
+    },
+    headers: {
+      "X-Custom-Header": process.env.SOMEAPI_CUSTOM_HEADER
+    }
+  }));
+
+
+
+
 app.use((req, res, next) => {
   // After successful login, redirect back to the intended page
   if (!req.user &&
@@ -131,6 +193,11 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+/** Proxy */
+
+
+
 app.use('/', express.static(path.join(__dirname, 'public'), {
   maxAge: 31557600000
 }));
@@ -172,6 +239,20 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
+
+const playlistRouter = express.Router();
+playlistRouter.use(bodyParser.json());
+playlistRouter.all('/playlists', function(req, res, next){
+  console.log('playlists', req.url);
+  next(); 
+});
+playlistRouter.get('/playlists/:id?', playlistsController.get);
+playlistRouter.put('/playlists/:id', bodyParser.json(), playlistsController.put);
+playlistRouter.delete('/playlists/:id', playlistsController.delete);
+playlistRouter.post('/playlists', bodyParser.json(), playlistsController.post);
+
+app.use(playlistRouter);
+
 
 /**
  * API examples routes.
@@ -348,12 +429,6 @@ if (process.env.NODE_ENV === 'development') {
 
 require('./middleware/graphql')(app);
 
-app.get('/me', passportConfig.isAuthenticated, (req, res) => {
-  console.log(req.user);
-  res.send(req.session);
-});
-
-const requestProxy = require('express-request-proxy');
 
 const getSpotifyToken = (user) => {
   const t = user.tokens.filter(token => token.kind === 'spotify');

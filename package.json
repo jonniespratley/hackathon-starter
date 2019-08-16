@@ -76,6 +76,8 @@
     "popper.js": "^1.15.0",
     "pug": "^2.0.4",
     "qs-middleware": "^1.0.3",
+    "redis": "^2.8.0",
+    "redis-streams": "^1.1.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "stripe": "^7.5.0",

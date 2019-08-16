@@ -1,0 +1,19 @@
+GET http://localhost:8080/playlists
+
+###
+GET http://localhost:8080/playlists/5d5719e868e0ce982c69c2bf
+
+###
+POST http://localhost:8080/playlists
+Content-Type: "application/json"
+Accept: "application/json"
+  
+{
+  "user_id": "1",
+  "image": "http://placehold.it/225",
+  "name": "Top Tracks",
+  "tracks": {
+    "href": "https://api.spotify.com/v1/playlists/1jZBfxuDddTPxZBAVKgVoA/tracks",
+    "total": 21
+  }
+}
