@@ -5,32 +5,37 @@
 
 const Model = require('../models/Epoch.js');
 
+exports.getByUsername = (req, res) => {
+  req.loaders.spotify.playlists.load(req.params.username).then(resp => {
+    res.send(resp);
+  });
+};
 exports.get = (req, res) => {
-  console.log(req.locals);
+  console.log(req.loaders);
   const {query} = req;
   const {id} = req.params;
   if(id){
     Model.findById(id, (err, playlist) => {
-      if(req.is('html')){
-        return res.render('playlist', {
-          err,
-          playlist
-        });
+      if(req.is('json')){
+        return res.status(200).send({err, playlist});
       } 
-      return res.status(200).send({err, playlist});
+      return res.render('playlists/playlist', {
+        err,
+        playlist
+      });
     });
   }
 
   if(!id){
     Model.find(query, (err, playlists) => {
-      console.log('getPlaylists', err, playlists);
-      if(req.is('html')){
-        return res.render('playlists', {
-          err,
-          playlists
-        });
+      if(req.is('json')){
+        return res.status(200).send({err, playlists});  
       } 
-      return res.status(200).send({err, playlists});
+      return res.render('playlists', {
+        err,
+        playlists
+      });
+      
     });
   }
 };

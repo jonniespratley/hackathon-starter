@@ -22,6 +22,7 @@ const passport = require('passport');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
+const loaders = require('./middleware/loaders')
 
 const upload = multer({
   dest: path.join(__dirname, 'uploads')
@@ -241,11 +242,25 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
 const playlistRouter = express.Router();
-playlistRouter.use(bodyParser.json());
-playlistRouter.all('/playlists', function(req, res, next){
+playlistRouter.use([bodyParser.json(), passportConfig.isAuthenticated]);
+
+playlistRouter.use(function(req, res, next){
+  if(!req.loaders){
+    req.loaders = {};
+  }
+  if(req.user){
+    const [{accessToken}] = req.user.tokens.filter(t => t.kind === 'spotify');
+    if(req.loaders && !req.loaders.spotify){
+      req.loaders.spotify = loaders.createLoaders(accessToken);
+    }
+    console.log(req.user.tokens, accessToken);
+  }
   console.log('playlists', req.url);
   next(); 
 });
+
+playlistRouter.get('/epocs/:username', playlistsController.getByUsername);
+
 playlistRouter.get('/playlists/:id?', playlistsController.get);
 playlistRouter.put('/playlists/:id', bodyParser.json(), playlistsController.put);
 playlistRouter.delete('/playlists/:id', playlistsController.delete);
@@ -502,7 +517,10 @@ app.get([
 
 app.get('/me', passportConfig.isAuthenticated, (req, res) => {
   console.log(req.user);
-  res.send(req.session);
+  const {user, session} = req;
+  res.send({
+    user, session
+  });
 });
 
 /**

@@ -17,7 +17,12 @@ async function spotifyAPIRequest({accessToken, resource, id, sub, query}){
 function genLoaders(accessToken, ids) {
   console.log('Create loaders for ', accessToken, ids);
   let out = [];
-  out = [...ids].map(id => spotifyAPIRequest({accessToken, resource: 'users', id, sub: 'playlists'}))
+  out = [...ids].map(id => spotifyAPIRequest({
+    accessToken, 
+    resource: 'users', 
+    id, 
+    sub: 'playlists'
+  }))
   return Promise.all(out);
 }
 
@@ -26,24 +31,15 @@ function createLoaders(authToken) {
     playlists: new DataLoader(ids => genLoaders(authToken, ids)),
   }
 }
-function EpochModel(o){
-  return {
-    id: o.id,
-    image: o.images[0].url,
-    name: o.name,
-    tracks: o.tracks
-  }
-};
+
 const User = require('../models/User');
 
 async function getUser(email){
   console.log('Get User', email);
-  return User.findOne({email})
-  
+  return User.findOne({email})  
 }
 module.exports = {
-  getUser,
-  EpochModel,
+  getUser, 
   createLoaders,
   genLoaders
 }
