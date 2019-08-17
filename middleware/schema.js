@@ -18,6 +18,7 @@ const typeDefs = gql `
   type Author {
     name: String
     books: [Book]
+    posts: [Post]
   }
 
 
@@ -28,6 +29,22 @@ const typeDefs = gql `
     url: String!
   }
 
+  type Post {
+    id: ID!
+    title: String!
+    body: String
+    url: String
+    author: Author
+  }
+  
+
+
+
+  type Track { 
+    href: String 
+    name: String
+    image: String
+  }
 
 
   type Tracks { 
@@ -36,13 +53,15 @@ const typeDefs = gql `
   }
 
   type Epoc { 
-    id: String
+    id: ID!
     image: String
     name: String
     tracks: Tracks 
   }
 
   type User { 
+    id: ID!
+    posts: [Post]
     username: String 
     image: String 
     items: [Epoc] 
@@ -69,6 +88,8 @@ const typeDefs = gql `
 
     # "Fetch a single link by its id"
     link(id: ID!): Link
+
+    getTracks: [Track]
   }
 
   type Mutation {

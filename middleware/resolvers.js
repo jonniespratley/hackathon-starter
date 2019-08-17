@@ -56,7 +56,8 @@ const resolvers = {
         },
         getBooks: (obj, args, context, info) => {
             console.log('Query.getBooks', obj, args, context, info);
-            return Book.find((err, docs) => {
+            return Book.find(args, (err, docs) => {
+                if(err) throw err;
                 return docs
             });
         },
